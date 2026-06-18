@@ -1,0 +1,354 @@
+@import "../../common/variables";
+@import "@blueprintjs/core/src/components/icon/icon-mixins";
+
+.#{$ns}-react-table {
+  width: 100%;
+
+  .#{$ns}-react-table-empty {
+    padding: $pt-grid-size * 2;
+
+    &[data-loading="true"] {
+      height: 150px;
+    }
+  }
+
+  .#{$ns}-react-table-top-toolbar,
+  .#{$ns}-react-table-top-toolbar-right {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    .#{$ns}-react-table-column-manager {
+      background: $white;
+      padding: 8px;
+      width: 360px;
+    }
+  }
+
+  .#{$ns}-react-table-column-hiding {
+    margin-left: $pt-grid-size;
+  }
+
+  .#{$ns}-react-table-global-filter {
+    margin-left: $pt-grid-size;
+    width: 200px;
+  }
+
+  .#{$ns}-react-table-utility-toolbar {
+    align-items: center;
+    display: flex;
+    gap: 0;
+
+    &:has(> :nth-child(2)) {
+      gap: 10px;
+    }
+  }
+
+  .#{$ns}-react-table-content {
+    overflow-x: auto;
+    position: relative;
+    width: 100%;
+
+    &[data-loading="true"] {
+      overflow-x: clip;
+    }
+  }
+
+  .#{$ns}-react-table-loading {
+    align-items: center;
+    background-color: transparentize($white, 0.5);
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .#{$ns}-react-table-head,
+  .#{$ns}-react-table-body {
+    width: fit-content;
+  }
+
+  .#{$ns}-react-table-head-cell {
+    @include heading-typography();
+    user-select: none;
+
+    &:hover .#{$ns}-react-table-resizer {
+      opacity: 1;
+    }
+
+    &:hover .#{$ns}-react-table-head-filter[data-can-resize="true"] {
+      width: calc(100% - $pt-grid-size * 4);
+    }
+
+    &[data-sortable="true"] {
+      cursor: pointer;
+    }
+
+    .#{$ns}-react-table-sorting {
+      flex: 0 0 auto;
+      margin-right: 4px;
+      padding: 0 8px;
+    }
+  }
+
+  .#{$ns}-react-table-head-cell-content {
+    align-items: center;
+    display: flex;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  .#{$ns}-react-table-head-cell-content-label {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    padding-top: 3px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // .#{$ns}-react-table-sorting {
+  //   flex: 0 0 auto;
+  //   padding: 0;
+  // }
+
+  .#{$ns}-react-table-head-filter {
+    @include base-typography();
+    font-family: $pt-font-family;
+    margin-top: calc($pt-grid-size / 2);
+    width: calc(100% - $pt-grid-size * 2);
+
+    >.#{$ns}-numeric-input {
+      max-width: calc(100% - $pt-grid-size * 2);
+
+      .#{$ns}-input-group {
+        width: 100%;
+      }
+    }
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  .#{$ns}-react-table-cell[data-ellipsize="true"] {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .#{$ns}-react-table-cell[data-ellipsize="true"] > * {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    padding-top: 3px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .#{$ns}-react-table-row-expander-wrapper {
+    align-items: center;
+    display: flex;
+  }
+
+  .#{$ns}-react-table-row-expander {
+    cursor: pointer;
+    display: inline-block;
+    width: 25px;
+  }
+
+  .#{$ns}-react-table-resizer {
+    cursor: col-resize;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    touch-action: none;
+    user-select: none;
+    width: $pt-icon-size-standard;
+
+    &::before {
+      @include pt-icon();
+      content: map-get($blueprint-icons-16-codepoints, "drag-handle-vertical");
+      position: absolute;
+      right: calc($pt-icon-size-standard / 4);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &[data-resizing="true"] {
+      opacity: 1;
+    }
+  }
+
+  .#{$ns}-react-table-head-cell[data-has-filter="true"] {
+    .#{$ns}-react-table-resizer::before {
+      top: 25%;
+    }
+  }
+
+  .#{$ns}-react-table-selection {
+    align-items: center;
+    display: flex;
+    height: 100%;
+  }
+
+  .#{$ns}-react-table-row-sub-component {
+    &:empty {
+      display: none;
+    }
+  }
+
+  .#{$ns}-react-table-pagination {
+    display: flex;
+    justify-content: space-between;
+    padding: $pt-grid-size;
+    gap: $pt-grid-size;
+
+    .#{$ns}-pagination {
+      width: unset;
+    }
+  }
+
+  &[data-theme="standard"] {
+    .#{$ns}-react-table-top-toolbar {
+      padding: $pt-grid-size;
+    }
+
+    .#{$ns}-react-table-content[data-top-toolbar="true"] {
+      border-top: 1px solid $light-gray3;
+    }
+
+    .#{$ns}-react-table-row {
+      align-items: stretch;
+      display: flex;
+      width: fit-content;
+
+      &:nth-child(even) {
+        background: $light-gray5;
+      }
+
+      .#{$ns}-dark & {
+        &:nth-child(even) {
+          color: $pt-text-color;
+        }
+      }
+
+      &:hover[data-clickable="true"] {
+        background-color: $light-gray4;
+        cursor: pointer;
+      }
+    }
+
+    .#{$ns}-react-table-cell {
+      align-items: center;
+      display: flex;
+    }
+
+    .#{$ns}-react-table-head-cell,
+    .#{$ns}-react-table-cell {
+      box-sizing: content-box;
+      padding: $pt-grid-size;
+      position: relative;
+
+      &:not(:last-child) {
+        border-right: 1px solid $light-gray3;
+      }
+    }
+
+    .#{$ns}-react-table-head .#{$ns}-react-table-row {
+      border-bottom: 1px solid $gray3;
+    }
+
+    .#{$ns}-react-table-body .#{$ns}-react-table-row {
+      border-bottom: 1px solid $light-gray3;
+    }
+
+    .#{$ns}-react-table-row-sub-component {
+      border-bottom: 1px solid $light-gray3;
+      width: 100%;
+    }
+
+    .#{$ns}-dark & {
+      .#{$ns}-react-table-row:nth-child(odd) .#{$ns}-react-table-row-expander svg {
+        fill: map-get($pt-dark-intent-text-colors, "primary");
+      }
+    }
+  }
+
+  &[data-theme="segment"] {
+    margin: -$pt-grid-size;
+
+    .#{$ns}-react-table-content {
+      padding: $pt-grid-size;
+    }
+
+    [data-theme="segment"] & {
+      margin: unset;
+
+      .#{$ns}-react-table-content {
+        padding: unset;
+      }
+    }
+
+    .#{$ns}-react-table-empty {
+      background-color: $white;
+      box-shadow: $pt-elevation-shadow-1;
+    }
+
+    .#{$ns}-react-table-loading {
+      background-color: transparentize($light-gray3, 0.5);
+    }
+
+    .#{$ns}-react-table-row {
+      align-items: center;
+      display: flex;
+      padding: 0 $pt-grid-size;
+      width: fit-content;
+
+      &:hover[data-clickable="true"] {
+        background-color: $light-gray4;
+        cursor: pointer;
+      }
+    }
+
+    .#{$ns}-react-table-top-toolbar {
+      padding: $pt-grid-size $pt-grid-size 0;
+    }
+
+    .#{$ns}-react-table-head-cell {
+      color: $gray1;
+    }
+
+    .#{$ns}-react-table-head-cell,
+    .#{$ns}-react-table-cell {
+      box-sizing: content-box;
+      padding: $pt-grid-size;
+      position: relative;
+    }
+
+    .#{$ns}-react-table-body .#{$ns}-react-table-row {
+      background: $white;
+      box-shadow: 0 1px 4px rgba(17, 20, 24, 10%), 0 4px 6px rgba(17, 20, 24, 10%);
+
+      &[data-depth="0"]:not(:first-child) {
+        margin-top: $pt-grid-size;
+      }
+    }
+
+    .#{$ns}-react-table-row-sub-component {
+      background: $white;
+      box-shadow: 0 1px 4px rgba(17, 20, 24, 10%), 0 4px 6px rgba(17, 20, 24, 10%);
+    }
+
+    .#{$ns}-dark & {
+      .#{$ns}-react-table-body .#{$ns}-react-table-row {
+        color: $pt-text-color;
+      }
+    }
+  }
+}

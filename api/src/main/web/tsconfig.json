@@ -1,0 +1,16 @@
+{
+    "extends": "../../../../tsconfig.module",
+    "compilerOptions": {
+        "target": "es2021",
+        "jsx": "react",
+        "baseUrl": ".",
+        "module": "es2020",
+        "outDir": "../lib/esm",
+        "skipLibCheck": true,
+        "paths": {
+            "@root/*": [
+                "./*"
+            ]
+        }
+    }
+}

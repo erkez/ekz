@@ -1,0 +1,11 @@
+{
+    "importOrder": [
+        "^@root",
+        "^[./]"
+    ],
+    "plugins": [
+        "@trivago/prettier-plugin-sort-imports"
+    ],
+    "importOrderSeparation": true,
+    "endOfLine": "auto"
+}

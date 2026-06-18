@@ -1,0 +1,1 @@
+export { useWindowFocusDetection } from './useWindowFocusDetection';
