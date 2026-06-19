@@ -1,0 +1,435 @@
+import { DateTime } from 'luxon';
+
+import { None } from '@ekz/option';
+
+import * as AsyncData from '../src/main/web/index';
+import type { AsyncData as AsyncDataType } from '../src/main/web/index';
+
+describe('AsyncData', () => {
+    it('Empty', () => {
+        const ad = AsyncData.Empty();
+        expect(ad.state).toBe('Empty');
+        expect(() => ad.value).toThrow();
+        expect(() => ad.error).toThrow();
+        expect(ad.isEmpty).toBe(true);
+        expect(ad.isReady).toBe(false);
+        expect(ad.isPending).toBe(false);
+        expect(ad.isStale).toBe(false);
+        expect(ad.isFailed).toBe(false);
+    });
+
+    it('Ready', () => {
+        const ad = AsyncData.Ready(1);
+        expect(ad.state).toBe('Ready');
+        expect(ad.value).toBe(1);
+        expect(() => ad.error).toThrow();
+        expect(ad.isEmpty).toBe(false);
+        expect(ad.isReady).toBe(true);
+        expect(ad.isPending).toBe(false);
+        expect(ad.isStale).toBe(false);
+        expect(ad.isFailed).toBe(false);
+    });
+
+    it('Pending', () => {
+        const ad = AsyncData.Pending();
+        expect(ad.state).toBe('Pending');
+        expect(() => ad.value).toThrow();
+        expect(() => ad.error).toThrow();
+        expect(ad.isEmpty).toBe(true);
+        expect(ad.isReady).toBe(false);
+        expect(ad.isPending).toBe(true);
+        expect(ad.isStale).toBe(false);
+        expect(ad.isFailed).toBe(false);
+    });
+
+    it('PendingStale', () => {
+        const ad = AsyncData.Ready(1).pending();
+        expect(ad.state).toBe('PendingStale');
+        expect(ad.value).toBe(1);
+        expect(() => ad.error).toThrow();
+        expect(ad.isEmpty).toBe(false);
+        expect(ad.isReady).toBe(false);
+        expect(ad.isPending).toBe(true);
+        expect(ad.isStale).toBe(true);
+        expect(ad.isFailed).toBe(false);
+    });
+
+    it('FailedStale', () => {
+        const error = new Error();
+        const ad = AsyncData.Ready(1).pending().fail(error);
+        expect(ad.state).toBe('FailedStale');
+        expect(ad.value).toBe(1);
+        expect(ad.error).toBe(error);
+        expect(ad.isEmpty).toBe(false);
+        expect(ad.isReady).toBe(false);
+        expect(ad.isPending).toBe(false);
+        expect(ad.isStale).toBe(true);
+        expect(ad.isFailed).toBe(true);
+    });
+
+    it('Failed', () => {
+        const error = new Error();
+        const ad = AsyncData.Failed(error);
+        expect(ad.state).toBe('Failed');
+        expect(() => ad.value).toThrow();
+        expect(ad.error).toBe(error);
+        expect(ad.isEmpty).toBe(true);
+        expect(ad.isReady).toBe(false);
+        expect(ad.isPending).toBe(false);
+        expect(ad.isStale).toBe(false);
+        expect(ad.isFailed).toBe(true);
+    });
+
+    it('should properly transition between states', () => {
+        let ad = AsyncData.Empty();
+        expect(ad.state).toBe('Empty');
+        ad = ad.fail(new Error());
+        expect(ad.state).toBe('Failed');
+        ad = ad.pending();
+        expect(ad.state).toBe('Pending');
+        ad = ad.ready(1);
+        expect(ad.state).toBe('Ready');
+        ad = ad.pending();
+        expect(ad.state).toBe('PendingStale');
+        ad = ad.fail(new Error());
+        expect(ad.state).toBe('FailedStale');
+        ad = ad.ready(1);
+        expect(ad.state).toBe('Ready');
+    });
+
+    it('should properly match', () => {
+        const matchers = {
+            Empty: jest.fn().mockReturnValue('Empty'),
+            Failed: jest.fn().mockReturnValue('Failed'),
+            Pending: jest.fn().mockReturnValue('Pending'),
+            Ready: jest.fn().mockReturnValue('Ready'),
+            PendingStale: jest.fn().mockReturnValue('PendingStale'),
+            FailedStale: jest.fn().mockReturnValue('FailedStale'),
+        };
+
+        const getDefault = jest.fn().mockReturnValue('none');
+
+        let ad = AsyncData.Empty();
+        let result = ad.match(matchers, getDefault);
+        expect(result).toBe('Empty');
+
+        ad = ad.fail(new Error());
+        result = ad.match(matchers, getDefault);
+        expect(result).toBe('Failed');
+
+        ad = ad.pending();
+        result = ad.match(matchers, getDefault);
+        expect(result).toBe('Pending');
+
+        ad = ad.ready(1);
+        result = ad.match(matchers, getDefault);
+        expect(result).toBe('Ready');
+
+        ad = ad.pending();
+        result = ad.match(matchers, getDefault);
+        expect(result).toBe('PendingStale');
+
+        ad = ad.fail(new Error());
+        result = ad.match(matchers, getDefault);
+        expect(result).toBe('FailedStale');
+
+        expect(matchers.Empty).toHaveBeenCalledTimes(1);
+        expect(matchers.Ready).toHaveBeenCalledTimes(1);
+        expect(matchers.Failed).toHaveBeenCalledTimes(1);
+        expect(matchers.FailedStale).toHaveBeenCalledTimes(1);
+        expect(matchers.Pending).toHaveBeenCalledTimes(1);
+        expect(matchers.PendingStale).toHaveBeenCalledTimes(1);
+        expect(getDefault).toHaveBeenCalledTimes(0);
+    });
+
+    it('should properly match default', () => {
+        const matchers = {
+            Ready: jest.fn().mockReturnValue('Ready'),
+        };
+
+        const getDefault = jest.fn().mockReturnValue('none');
+
+        const ad = AsyncData.Pending();
+        const result = ad.match(matchers, getDefault);
+        expect(result).toBe('none');
+
+        expect(matchers.Ready).toHaveBeenCalledTimes(0);
+        expect(getDefault).toHaveBeenCalledTimes(1);
+    });
+
+    it('should properly map', () => {
+        let ad: AsyncDataType<number> = AsyncData.Empty();
+        const double = jest.fn((x: number) => x * 2);
+
+        ad = ad.map(double);
+        expect(ad.state).toBe('Empty');
+        expect(() => ad.value).toThrow();
+
+        ad = ad.fail(new Error()).map(double);
+        expect(ad.state).toBe('Failed');
+        expect(() => ad.value).toThrow();
+
+        ad = ad.pending().map(double);
+        expect(ad.state).toBe('Pending');
+        expect(() => ad.value).toThrow();
+
+        ad = ad.ready(2).map(double);
+        expect(ad.state).toBe('Ready');
+        expect(ad.value).toBe(4);
+
+        ad = ad.pending().map(double);
+        expect(ad.state).toBe('PendingStale');
+        expect(ad.value).toBe(8);
+
+        ad = ad.fail(new Error()).map(double);
+        expect(ad.state).toBe('FailedStale');
+        expect(ad.value).toBe(16);
+
+        ad = ad.ready(3).map(double);
+        expect(ad.state).toBe('Ready');
+        expect(ad.value).toBe(6);
+    });
+
+    it('should properly flatMap', () => {
+        let ad: AsyncDataType<number> = AsyncData.Empty();
+
+        ad = ad.flatMap(() => AsyncData.Empty());
+        expect(ad.state).toBe('Empty');
+
+        ad = ad.flatMap(() => AsyncData.Ready(1));
+        expect(ad.state).toBe('Empty');
+
+        ad = AsyncData.Ready(1);
+
+        ad = ad.flatMap((x) => AsyncData.Ready(x + 1));
+        expect(ad.state).toBe('Ready');
+        expect(ad.value).toBe(2);
+
+        ad = ad.pending().flatMap((x) => AsyncData.Ready(x + 1));
+        expect(ad.state).toBe('Ready');
+        expect(ad.value).toBe(3);
+
+        ad = ad.fail(new Error()).flatMap((x) => AsyncData.Ready(x + 1));
+        expect(ad.state).toBe('Ready');
+        expect(ad.value).toBe(4);
+
+        ad = ad.flatMap(() => AsyncData.Failed(new Error()));
+        expect(ad.state).toBe('Failed');
+        expect(() => ad.value).toThrow();
+
+        ad = AsyncData.Ready(1).pending();
+        ad = ad.flatMap(() => AsyncData.Failed(new Error()));
+        expect(ad.state).toBe('Failed');
+
+        ad = AsyncData.Ready(1).fail(new Error());
+        ad = ad.flatMap(() => AsyncData.Pending());
+        expect(ad.state).toBe('Pending');
+    });
+
+    it('should properly forEach', () => {
+        let ad: AsyncDataType<number> = AsyncData.Empty();
+        const forEachFn = jest.fn();
+
+        ad.forEach(forEachFn);
+        expect(forEachFn).toHaveBeenCalledTimes(0);
+        forEachFn.mockClear();
+
+        ad = ad.fail(new Error());
+        ad.forEach(forEachFn);
+        expect(forEachFn).toHaveBeenCalledTimes(0);
+        forEachFn.mockClear();
+
+        ad = ad.pending();
+        ad.forEach(forEachFn);
+        expect(forEachFn).toHaveBeenCalledTimes(0);
+        forEachFn.mockClear();
+
+        ad = ad.ready(2);
+        ad.forEach(forEachFn);
+        expect(forEachFn).toHaveBeenCalledTimes(1);
+        expect(forEachFn).toHaveBeenLastCalledWith(2);
+        forEachFn.mockClear();
+
+        ad = ad.pending();
+        ad.forEach(forEachFn);
+        expect(forEachFn).toHaveBeenCalledTimes(1);
+        expect(forEachFn).toHaveBeenLastCalledWith(2);
+        forEachFn.mockClear();
+
+        ad = ad.fail(new Error());
+        ad.forEach(forEachFn);
+        expect(forEachFn).toHaveBeenCalledTimes(1);
+        expect(forEachFn).toHaveBeenLastCalledWith(2);
+        forEachFn.mockClear();
+
+        ad = ad.ready(3);
+        ad.forEach(forEachFn);
+        expect(forEachFn).toHaveBeenCalledTimes(1);
+        expect(forEachFn).toHaveBeenLastCalledWith(3);
+        forEachFn.mockClear();
+    });
+
+    it('should properly zip two AsyncData values', () => {
+        const empty: AsyncDataType<number> = AsyncData.Empty();
+        const failed: AsyncDataType<number> = AsyncData.Failed(new Error());
+        const pending: AsyncDataType<number> = AsyncData.Pending();
+        const ready: AsyncDataType<number> = AsyncData.Ready(10);
+        const pendingStale: AsyncDataType<number> = AsyncData.Ready(15).pending();
+        const failedStale = pendingStale.fail(new Error());
+
+        expect(empty.zip(empty).state === 'Empty').toBe(true);
+        expect(empty.zip(ready).state === 'Empty').toBe(true);
+        expect(ready.zip(empty).state === 'Empty').toBe(true);
+
+        expect(failed.zip(failed).state === 'Failed').toBe(true);
+        expect(ready.zip(failed).state === 'Failed').toBe(true);
+        expect(failed.zip(ready).state === 'Failed').toBe(true);
+
+        expect(ready.zip(ready).state === 'Ready').toBe(true);
+        expect(ready.zip(ready).value).toEqual([10, 10]);
+
+        expect(ready.zip(pending).state === 'Pending').toBe(true);
+        expect(pending.zip(ready).state === 'Pending').toBe(true);
+        expect(pending.zip(pending).state === 'Pending').toBe(true);
+
+        expect(ready.zip(pendingStale).value).toEqual([10, 15]);
+        expect(pendingStale.zip(ready).value).toEqual([15, 10]);
+        expect(ready.zip(pendingStale).state === 'PendingStale').toBe(true);
+        expect(pendingStale.zip(ready).state === 'PendingStale').toBe(true);
+
+        expect(failedStale.zip(ready).state === 'FailedStale').toBe(true);
+        expect(failedStale.zip(ready).value).toEqual([15, 10]);
+        expect(ready.zip(failedStale).state === 'FailedStale').toBe(true);
+        expect(ready.zip(failedStale).value).toEqual([10, 15]);
+    });
+
+    it('should properly get duration of pending data', () => {
+        expect.assertions(2);
+        const startTime = DateTime.utc();
+        const currentTime = DateTime.utc().plus({ milliseconds: 850 });
+
+        let ad = AsyncData.Pending(startTime);
+        let duration = ad.duration(currentTime);
+        duration.map((value) => expect(value).toBeCloseTo(850, 1));
+
+        ad = ad.ready(2);
+        duration = ad.duration(currentTime);
+        expect(duration).toEqual(None);
+    });
+
+    it('should accept null as ready value', () => {
+        let ad: AsyncDataType<null> = AsyncData.Empty();
+        expect(ad.isEmpty).toBe(true);
+
+        ad = ad.ready(null);
+        expect(ad.isEmpty).toBe(false);
+        expect(ad.value).toBe(null);
+    });
+
+    it('should properly observe promise', async () => {
+        let ad: AsyncDataType<number> = AsyncData.Empty();
+        const getter = jest.fn(() => ad);
+        const setter = jest.fn((newAd: AsyncDataType<number>) => {
+            ad = newAd;
+        });
+        let deferred = defer<number>();
+
+        AsyncData.observePromiseGS(deferred.promise, getter, setter);
+        expect(ad.state).toBe('Pending');
+        expect(getter).toHaveBeenCalledTimes(1);
+        expect(setter.mock.calls[0][0].state).toBe('Pending');
+
+        deferred.resolve(1);
+        await deferred.promise;
+
+        expect(getter).toHaveBeenCalledTimes(2);
+        expect(setter).toHaveBeenCalledTimes(2);
+        expect(setter.mock.calls[1][0].state).toBe('Ready');
+        expect(ad.state).toBe('Ready');
+        expect(ad.value).toBe(1);
+
+        deferred = defer<number>();
+        AsyncData.observePromiseGS(deferred.promise, getter, setter);
+        expect(getter).toHaveBeenCalledTimes(3);
+        expect(setter).toHaveBeenCalledTimes(3);
+        expect(setter.mock.calls[2][0].state).toBe('PendingStale');
+        expect(ad.state).toBe('PendingStale');
+
+        deferred.reject(new Error(''));
+        await deferred.promise.catch(() => {});
+
+        expect(getter).toHaveBeenCalledTimes(4);
+        expect(setter).toHaveBeenCalledTimes(4);
+        expect(setter.mock.calls[3][0].state).toBe('FailedStale');
+
+        expect(ad.state).toBe('FailedStale');
+        expect(ad.value).toBe(1);
+    });
+
+    it('observe promise should not call ready updater when cancelled', async () => {
+        let ad: AsyncDataType<number> = AsyncData.Empty();
+        const getter = jest.fn(() => ad);
+        const setter = jest.fn((newAd: AsyncDataType<number>) => {
+            ad = newAd;
+        });
+        const deferred = defer<number>();
+
+        const cancel = AsyncData.observePromiseGS(deferred.promise, getter, setter);
+        expect(ad.state).toBe('Pending');
+        expect(getter).toHaveBeenCalledTimes(1);
+        expect(setter.mock.calls[0][0].state).toBe('Pending');
+
+        cancel();
+        deferred.resolve(1);
+        await deferred.promise;
+
+        expect(getter).toHaveBeenCalledTimes(1);
+        expect(setter).toHaveBeenCalledTimes(1);
+        expect(ad.state).toBe('Pending');
+    });
+
+    it('observe promise should not call failed updater when cancelled', async () => {
+        let ad: AsyncDataType<number> = AsyncData.Empty();
+        const getter = jest.fn(() => ad);
+        const setter = jest.fn((newAd: AsyncDataType<number>) => {
+            ad = newAd;
+        });
+        const deferred = defer<number>();
+
+        const cancel = AsyncData.observePromiseGS(deferred.promise, getter, setter);
+        expect(ad.state).toBe('Pending');
+        expect(getter).toHaveBeenCalledTimes(1);
+        expect(setter.mock.calls[0][0].state).toBe('Pending');
+
+        cancel();
+        deferred.reject(new Error());
+
+        try {
+            await deferred.promise;
+        } catch {
+            // expected
+        }
+
+        expect(getter).toHaveBeenCalledTimes(1);
+        expect(setter).toHaveBeenCalledTimes(1);
+        expect(ad.state).toBe('Pending');
+    });
+});
+
+type Deferred<V> = {
+    promise: Promise<V>;
+    resolve: (value: V) => void;
+    reject: (error: Error) => void;
+};
+
+function defer<A>(): Deferred<A> {
+    let resolve!: (value: A) => void;
+    let reject!: (error: Error) => void;
+
+    const promise = new Promise<A>(($resolve, $reject) => {
+        resolve = $resolve;
+        reject = $reject;
+    });
+
+    return { promise, resolve, reject };
+}

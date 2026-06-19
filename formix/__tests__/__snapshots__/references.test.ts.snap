@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`references ArrayFieldRef should define ArrayFieldRef 1`] = `
+FieldState {
+  "active": false,
+  "disabled": false,
+  "touched": false,
+  "value": Immutable.List [
+    {
+      "name": FieldRefImpl {
+        "initialState": FieldState {
+          "active": false,
+          "disabled": false,
+          "touched": false,
+          "value": "fizz",
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`references FieldRef should define FieldRef 1`] = `
+FieldState {
+  "active": false,
+  "disabled": false,
+  "touched": false,
+  "value": "fizz",
+}
+`;

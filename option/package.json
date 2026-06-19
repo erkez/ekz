@@ -1,11 +1,12 @@
 {
-  "name": "@ekz/react-utils",
-  "version": "1.0.0",
+  "name": "@ekz/option",
+  "version": "2.0.0",
   "license": "MIT",
+  "description": "Option/Maybe type for TypeScript",
   "repository": {
     "type": "git",
     "url": "https://github.com/erkez/ekz.git",
-    "directory": "react-utils"
+    "directory": "option"
   },
   "publishConfig": {
     "access": "public",
@@ -16,36 +17,28 @@
   "esnext": "lib/esnext/index.js",
   "typings": "lib/esm/index.d.ts",
   "files": [
-    "lib"
+    "lib",
+    "README.md",
+    "LICENSE"
   ],
-  "dependencies": {
-    "luxon": "^3.7.2"
-  },
+  "keywords": [
+    "option",
+    "maybe",
+    "scala",
+    "type-safe"
+  ],
   "devDependencies": {
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/react": "^16.3.2",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@types/bluebird": "^3.5.42",
-    "@types/jest": "^30.0.0",
-    "@types/luxon": "^3.7.1",
     "npm-run-all": "^4.1.5",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
     "typescript": "^5.9.3"
   },
-  "peerDependencies": {
-    "react": "^18.3.1 || ^19",
-    "react-dom": "^18.3.1 || ^19"
-  },
   "scripts": {
-    "clean": "rm -rf dist/* || rm -rf lib/* || true",
-    "lint": "npx eslint --ext .ts --ext .tsx ./src/main/web",
+    "clean": "rm -rf lib/* || true",
+    "lint": "npx eslint --ext .ts ./src/main/web",
     "lint:fix": "yarn lint --fix",
     "compile": "run-p \"compile:*\"",
     "compile:esm": "tsc -p ./src/main/web --outDir ./lib/esm",
     "compile:cjs": "tsc -p ./src/main/web -m commonjs --verbatimModuleSyntax false --outDir ./lib/cjs",
     "compile:esnext": "tsc -p ./src/main/web -t esnext --outDir ./lib/esnext",
-    "dev": "yarn compile:esm --watch",
     "prepublish": "yarn clean && yarn lint && yarn compile"
   }
 }

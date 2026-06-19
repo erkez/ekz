@@ -5,8 +5,11 @@
     "license": "MIT",
     "packageManager": "yarn@4.16.0",
     "workspaces": [
-        "api",
+        "option",
+        "async-data",
         "react-utils",
+        "formix",
+        "api",
         "blueprintjs"
     ],
     "resolutions": {
@@ -14,7 +17,8 @@
     },
     "scripts": {
         "compile": "yarn workspaces foreach -Apt run compile",
-        "lint": "yarn workspaces foreach -Apt run lint"
+        "lint": "yarn workspaces foreach -Apt run lint",
+        "dedupe:check": "yarn dedupe --check"
     },
     "devDependencies": {
         "@ekz/packer": "^0.16.0",
@@ -27,6 +31,6 @@
         "typescript": "^5.9.3"
     },
     "engines": {
-        "node": "^20.16"
+        "node": "^24.0.0"
     }
 }

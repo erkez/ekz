@@ -1,6 +1,6 @@
 {
   "name": "@ekz/api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -8,7 +8,8 @@
     "directory": "api"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
@@ -18,8 +19,8 @@
     "lib"
   ],
   "dependencies": {
-    "@ekz/async-data": "^0.4.7",
-    "@ekz/option": "^1.2.6",
+    "@ekz/async-data": "workspace:^",
+    "@ekz/option": "workspace:^",
     "@ekz/react-utils": "workspace:^",
     "axios": "^1.16.0",
     "bluebird": "^3.7.2",
