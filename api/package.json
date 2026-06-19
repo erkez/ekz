@@ -2,6 +2,8 @@
   "name": "@ekz/api",
   "version": "1.0.2",
   "license": "MIT",
+  "description": "HTTP/WebSocket API client for React",
+  "homepage": "https://docs.ekz.io/api/",
   "repository": {
     "type": "git",
     "url": "https://github.com/erkez/ekz.git",
@@ -16,7 +18,8 @@
   "esnext": "lib/esnext/index.js",
   "typings": "lib/esm/index.d.ts",
   "files": [
-    "lib"
+    "lib",
+    "README.md"
   ],
   "dependencies": {
     "@ekz/async-data": "workspace:^",

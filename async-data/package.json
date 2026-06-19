@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "description": "Async data wrapper for promises",
+  "homepage": "https://docs.ekz.io/async-data/",
   "repository": {
     "type": "git",
     "url": "https://github.com/erkez/ekz.git",

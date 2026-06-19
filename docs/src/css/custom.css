@@ -1,0 +1,96 @@
+/**
+ * Global styles and per-package accent colors (see src/theme/Root.tsx).
+ */
+
+:root {
+    --ifm-color-primary: #334155;
+    --ifm-color-primary-dark: #2d3a47;
+    --ifm-color-primary-darker: #293543;
+    --ifm-color-primary-darkest: #222b35;
+    --ifm-color-primary-light: #39485a;
+    --ifm-color-primary-lighter: #3d4e61;
+    --ifm-color-primary-lightest: #45586d;
+    --ifm-code-font-size: 95%;
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+    --ifm-color-primary: #94a3b8;
+    --ifm-color-primary-dark: #8292a9;
+    --ifm-color-primary-darker: #7a899f;
+    --ifm-color-primary-darkest: #647089;
+    --ifm-color-primary-light: #a6b4c7;
+    --ifm-color-primary-lighter: #aeb9ca;
+    --ifm-color-primary-lightest: #c6ceda;
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+html[data-ekz-package='formix'] {
+    --ifm-color-primary: #2f6feb;
+    --ifm-color-primary-dark: #2963d4;
+    --ifm-color-primary-darker: #265dc8;
+    --ifm-color-primary-darkest: #1f4ca5;
+    --ifm-color-primary-light: #4580ed;
+    --ifm-color-primary-lighter: #5189ee;
+    --ifm-color-primary-lightest: #75a2f2;
+}
+
+html[data-ekz-package='async-data'] {
+    --ifm-color-primary: #0d9488;
+    --ifm-color-primary-dark: #0c857a;
+    --ifm-color-primary-darker: #0b7d73;
+    --ifm-color-primary-darkest: #09675f;
+    --ifm-color-primary-light: #0fa396;
+    --ifm-color-primary-lighter: #10ab9e;
+    --ifm-color-primary-lightest: #13c4b5;
+}
+
+html[data-ekz-package='option'] {
+    --ifm-color-primary: #7c3aed;
+    --ifm-color-primary-dark: #6d28d9;
+    --ifm-color-primary-darker: #6528c9;
+    --ifm-color-primary-darkest: #5321a6;
+    --ifm-color-primary-light: #8b54ef;
+    --ifm-color-primary-lighter: #9360f0;
+    --ifm-color-primary-lightest: #ae86f4;
+}
+
+html[data-ekz-package='api'] {
+    --ifm-color-primary: #ea580c;
+    --ifm-color-primary-dark: #d2510b;
+    --ifm-color-primary-darker: #c64c0a;
+    --ifm-color-primary-darkest: #a33f08;
+    --ifm-color-primary-light: #ec6924;
+    --ifm-color-primary-lighter: #ee7433;
+    --ifm-color-primary-lightest: #f2925c;
+}
+
+html[data-ekz-package='react-utils'] {
+    --ifm-color-primary: #0284c7;
+    --ifm-color-primary-dark: #0277b3;
+    --ifm-color-primary-darker: #0270a8;
+    --ifm-color-primary-darkest: #015c8b;
+    --ifm-color-primary-light: #0290db;
+    --ifm-color-primary-lighter: #0298e9;
+    --ifm-color-primary-lightest: #27aae9;
+}
+
+[data-theme='dark'][data-ekz-package='formix'] {
+    --ifm-color-primary: #6ea8fe;
+}
+
+[data-theme='dark'][data-ekz-package='async-data'] {
+    --ifm-color-primary: #2dd4bf;
+}
+
+[data-theme='dark'][data-ekz-package='option'] {
+    --ifm-color-primary: #a78bfa;
+}
+
+[data-theme='dark'][data-ekz-package='api'] {
+    --ifm-color-primary: #fb923c;
+}
+
+[data-theme='dark'][data-ekz-package='react-utils'] {
+    --ifm-color-primary: #38bdf8;
+}

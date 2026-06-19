@@ -2,6 +2,8 @@
   "name": "@ekz/react-utils",
   "version": "1.0.0",
   "license": "MIT",
+  "description": "React hooks and utilities",
+  "homepage": "https://docs.ekz.io/react-utils/",
   "repository": {
     "type": "git",
     "url": "https://github.com/erkez/ekz.git",
@@ -16,7 +18,8 @@
   "esnext": "lib/esnext/index.js",
   "typings": "lib/esm/index.d.ts",
   "files": [
-    "lib"
+    "lib",
+    "README.md"
   ],
   "dependencies": {
     "luxon": "^3.7.2"

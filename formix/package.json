@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "license": "MIT",
   "description": "Type-safe React form to be used with Typescript",
+  "homepage": "https://docs.ekz.io/formix/",
   "repository": {
     "type": "git",
     "url": "https://github.com/erkez/ekz.git",
