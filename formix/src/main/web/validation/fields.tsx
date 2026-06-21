@@ -70,9 +70,9 @@ function useAsyncValidationResult(
                     if (mounted) {
                         setResult({ pending: false, error: 'Unexpected error' });
                     }
-                    // eslint-disable-next-line no-console
+
                     console.warn('[Unhandled Validation Error]', error);
-                    // eslint-disable-next-line no-console
+
                     console.warn(
                         'An async validator should never throw, but it should resolve with the validation result.'
                     );

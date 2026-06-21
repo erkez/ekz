@@ -93,8 +93,7 @@ export interface CoreCell<TData extends RowData, TValue> {
 }
 
 export interface Cell<TData extends RowData, TValue>
-    extends CoreCell<TData, TValue>,
-        GroupingCell {}
+    extends CoreCell<TData, TValue>, GroupingCell {}
 
 export type GroupColumnDef<TData extends RowData, TValue = unknown> = GroupColumnDefBase<
     TData,
@@ -102,8 +101,10 @@ export type GroupColumnDef<TData extends RowData, TValue = unknown> = GroupColum
 > &
     ColumnIdentifiers<TData, TValue>;
 
-export interface GroupColumnDefBase<TData extends RowData, TValue = unknown>
-    extends ColumnDefBase<TData, TValue> {
+export interface GroupColumnDefBase<TData extends RowData, TValue = unknown> extends ColumnDefBase<
+    TData,
+    TValue
+> {
     /**
      * The children columns of this group.
      */
@@ -141,8 +142,7 @@ export interface HeaderContext<TData, TValue> {
 }
 
 export interface Header<TData extends RowData, TValue>
-    extends CoreHeader<TData, TValue>,
-        ColumnSizingHeader {}
+    extends CoreHeader<TData, TValue>, ColumnSizingHeader {}
 
 export type HeaderGroup<TData extends RowData> = CoreHeaderGroup<TData>;
 
@@ -204,8 +204,7 @@ export interface CoreHeader<TData extends RowData, TValue> {
 }
 
 export interface Header<TData extends RowData, TValue>
-    extends CoreHeader<TData, TValue>,
-        ColumnSizingHeader {}
+    extends CoreHeader<TData, TValue>, ColumnSizingHeader {}
 
 export interface ColumnSizingHeader {
     /**
@@ -227,7 +226,8 @@ export interface ColumnSizingHeader {
 }
 
 interface ColumnDefExtensions<TData extends RowData, TValue = unknown>
-    extends VisibilityColumnDef,
+    extends
+        VisibilityColumnDef,
         ColumnPinningColumnDef,
         FiltersColumnDef<TData>,
         SortingColumnDef<TData>,
@@ -357,11 +357,12 @@ export interface ColumnDefBase<TData, TValue> extends ColumnDefExtensions<TData,
 }
 
 export interface DisplayColumnDef<TData, TValue = unknown>
-    extends ColumnDefBase<TData, TValue>,
-        IdIdentifier<TData, TValue> {}
+    extends ColumnDefBase<TData, TValue>, IdIdentifier<TData, TValue> {}
 
-export interface ExpansionColumnDef<TData, TValue = unknown>
-    extends DisplayColumnDef<TData, TValue> {
+export interface ExpansionColumnDef<TData, TValue = unknown> extends DisplayColumnDef<
+    TData,
+    TValue
+> {
     /**
      * When row depth is not 0 and not expandable, a left padding is added to the cell for alignment with
      * parent row.

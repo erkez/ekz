@@ -2450,9 +2450,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ekz/eslint-config-packer@npm:^1.0.0-beta.2":
-  version: 1.0.0-beta.2
-  resolution: "@ekz/eslint-config-packer@npm:1.0.0-beta.2"
+"@ekz/eslint-config-packer@npm:^1.0.0-beta.4":
+  version: 1.0.0-beta.4
+  resolution: "@ekz/eslint-config-packer@npm:1.0.0-beta.4"
   dependencies:
     "@babel/eslint-parser": "npm:^8.0.1"
     "@eslint/compat": "npm:^2.1.0"
@@ -2467,7 +2467,7 @@ __metadata:
     eslint-webpack-plugin: "npm:^6.0.0"
     globals: "npm:^17.4.0"
     typescript-eslint: "npm:^8.61.1"
-  checksum: 10c0/6a161cb82e728afed2d2630cc5dcfabbc6464e51f2e167f34707b7af596b5655b44aff1f4ae40a9fbd16ba675a6893a9ddcdbbe0f83176467b4c4e9ad474805b
+  checksum: 10c0/9f72dcec90f644d937d6195148b6d4d33e0f2d94977b535315a8bd5c10537e3a3f4f8eaeec9d24c6ce95fbf890cb148453cb8b96255a84a8626698160b509459
   languageName: node
   linkType: hard
 
@@ -2509,9 +2509,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ekz/packer@npm:beta":
-  version: 1.0.0-beta.2
-  resolution: "@ekz/packer@npm:1.0.0-beta.2"
+"@ekz/packer@npm:^1.0.0-beta.4":
+  version: 1.0.0-beta.4
+  resolution: "@ekz/packer@npm:1.0.0-beta.4"
   dependencies:
     "@babel/core": "npm:^8.0.1"
     "@babel/plugin-transform-class-properties": "npm:^8.0.1"
@@ -2519,7 +2519,7 @@ __metadata:
     "@babel/preset-env": "npm:^8.0.2"
     "@babel/preset-react": "npm:^8.0.1"
     "@babel/preset-typescript": "npm:^8.0.1"
-    "@ekz/eslint-config-packer": "npm:^1.0.0-beta.2"
+    "@ekz/eslint-config-packer": "npm:^1.0.0-beta.4"
     babel-loader: "npm:^10.1.1"
     clean-webpack-plugin: "npm:^4.0.0"
     css-loader: "npm:^7.1.4"
@@ -2542,7 +2542,7 @@ __metadata:
     webpack-dev-server: "npm:^5.2.5"
   peerDependencies:
     typescript: "*"
-  checksum: 10c0/d0a0eb8eeacbff1a6192c289a8dff7c229413f6bed8290f4156912e9909680e2bfbc915ee0bcdf8a626a02f74f486211bf46d612f21a00aaa6e53771525665d8
+  checksum: 10c0/5aa0a6b45fa6f29a811f0f8c496747b27d40e957b8db2b3ccf2f27d2d51821d9ac0bf839ec8cf019b32a892fb0fec2011b25117dd9ebca2bac1300fb7ec2d8c4
   languageName: node
   linkType: hard
 
@@ -6638,13 +6638,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ekz@workspace:."
   dependencies:
-    "@ekz/packer": "npm:beta"
+    "@ekz/packer": "npm:^1.0.0-beta.4"
     "@trivago/prettier-plugin-sort-imports": "npm:^6.0.2"
     "@types/node": "npm:^25.6.0"
     "@types/react": "npm:18.3.28"
     "@types/react-dom": "npm:18.3.7"
     npm-run-all: "npm:^4.1.5"
-    prettier: "npm:3.3.3"
+    prettier: "npm:^3.8.4"
     typescript: "npm:^5.9.3"
   languageName: unknown
   linkType: soft
@@ -11352,12 +11352,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.3.3":
-  version: 3.3.3
-  resolution: "prettier@npm:3.3.3"
+"prettier@npm:^3.8.4":
+  version: 3.8.4
+  resolution: "prettier@npm:3.8.4"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10c0/b85828b08e7505716324e4245549b9205c0cacb25342a030ba8885aba2039a115dbcf75a0b7ca3b37bc9d101ee61fab8113fc69ca3359f2a226f1ecc07ad2e26
+  checksum: 10c0/b90a0cbe75b88ac0af9c13fe0f359bd19926fabccd88483227b21f71f0c1cc42da056fc1ac3a361e665577c568371d5ccfb2c62c31c8a1186f8d1bd531a063e9
   languageName: node
   linkType: hard
 

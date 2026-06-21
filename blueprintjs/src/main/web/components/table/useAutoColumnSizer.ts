@@ -58,7 +58,6 @@ export function useAutoColumnSizer(
                 setColumnSizing((previousSizing) => ({ ...previousSizing, ...sizing }));
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visibleFlatColumns, setColumnSizing, theme, ref]);
 
     React.useEffect(() => {

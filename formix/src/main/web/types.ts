@@ -67,17 +67,12 @@ export interface FieldMetadataUpdaters {
 }
 
 export interface Field<T>
-    extends FieldValue<T>,
-        FieldMetadata,
-        FieldMetadataUpdaters,
-        ValidationResult {
+    extends FieldValue<T>, FieldMetadata, FieldMetadataUpdaters, ValidationResult {
     setValue(value: React.SetStateAction<T>): void;
 }
 
 export interface ArrayField<T extends GenericFieldRef, V>
-    extends FieldMetadata,
-        FieldMetadataUpdaters,
-        ValidationResult {
+    extends FieldMetadata, FieldMetadataUpdaters, ValidationResult {
     readonly items: List<T>;
     unshift(value: V): T;
     push(value: V): T;

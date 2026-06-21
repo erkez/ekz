@@ -19,8 +19,10 @@ import {
  * `UseTableOptions` is a reexport of `TableOptions` with more options and relevant documentation.
  * Not all properties supported by `@tanstack/react-table` have been documented here.
  */
-export interface UseTableOptions<T = unknown>
-    extends Omit<TableOptions<T>, 'getCoreRowModel' | 'state' | 'onStateChange'> {
+export interface UseTableOptions<T = unknown> extends Omit<
+    TableOptions<T>,
+    'getCoreRowModel' | 'state' | 'onStateChange'
+> {
     /**
      * The typed column definitions. Every column in the table must have its own definition.
      */

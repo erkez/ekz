@@ -47,7 +47,6 @@ export function useAutoHeight(
                 maxPageSize
             );
             if (table.options.debugTable) {
-                // eslint-disable-next-line no-console
                 console.log('Calculating page size', {
                     averageRowHeight,
                     bodyHeight,

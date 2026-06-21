@@ -173,7 +173,6 @@ interface PageSizeOption {
 }
 
 const Table: TypedTable = Object.assign(
-    // eslint-disable-next-line react/display-name
     (props: TableProps) => {
         const {
             displayHeader = true,
