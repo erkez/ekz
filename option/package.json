@@ -34,7 +34,7 @@
   },
   "scripts": {
     "clean": "rm -rf lib/* || true",
-    "lint": "npx eslint --ext .ts ./src/main/web",
+    "lint": "npx eslint ./src/main/web",
     "lint:fix": "yarn lint --fix",
     "compile": "run-p \"compile:*\"",
     "compile:esm": "tsc -p ./src/main/web --outDir ./lib/esm",

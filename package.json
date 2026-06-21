@@ -21,7 +21,7 @@
         "dedupe:check": "yarn dedupe --check"
     },
     "devDependencies": {
-        "@ekz/packer": "^0.16.0",
+        "@ekz/packer": "beta",
         "@trivago/prettier-plugin-sort-imports": "^6.0.2",
         "@types/node": "^25.6.0",
         "@types/react": "18.3.28",

@@ -5,7 +5,6 @@ type ChangeListener<T> = (value: T) => unknown;
 type Unsubscribe = () => void;
 
 export class StorageService<T> {
-    // eslint-disable-next-line prettier/prettier
     private changeListeners: Array<ChangeListener<T>> = [];
 
     constructor(

@@ -23,7 +23,6 @@ abstract class GenericStorageBackend implements StorageBackend {
 }
 
 export class LocalStorageBackend extends GenericStorageBackend {
-    // eslint-disable-next-line prettier/prettier
     protected storage = localStorage;
 }
 

@@ -27,7 +27,7 @@ export function useTimer(
             }
         }
 
-        if (callbackCleanup.current != null) {
+        if (typeof callbackCleanup.current === 'function') {
             callbackCleanup.current();
             callbackCleanup.current = undefined;
         }

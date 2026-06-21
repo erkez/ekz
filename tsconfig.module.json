@@ -1,6 +1,9 @@
 {
-    "extends": "@ekz/packer/tsconfig/recommended",
+    "extends": "./node_modules/@ekz/packer/tsconfig/recommended",
     "compilerOptions": {
+        "moduleResolution": "node",
+        "target": "es2021",
+        "module": "es2020",
         "lib": [
             "dom",
             "dom.iterable",
@@ -17,6 +20,7 @@
         "pretty": true,
         "removeComments": false,
         "sourceMap": true,
+        "skipLibCheck": true,
         "stripInternal": true,
         "typeRoots": [
             "./node_modules/@types"
