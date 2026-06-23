@@ -1,0 +1,15 @@
+{
+    "extends": "./tsconfig.module.json",
+    "compilerOptions": {
+        "noEmit": true,
+        "outDir": "./.tsbuild-test",
+        "isolatedModules": true,
+        "declaration": false,
+        "verbatimModuleSyntax": false,
+        "types": [
+            "jest",
+            "node"
+        ]
+    },
+    "exclude": []
+}

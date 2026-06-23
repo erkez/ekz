@@ -1,6 +1,7 @@
 {
     "extends": "./node_modules/@ekz/packer/tsconfig/recommended",
     "compilerOptions": {
+        "ignoreDeprecations": "6.0",
         "moduleResolution": "node",
         "target": "es2021",
         "module": "es2020",
@@ -26,5 +27,8 @@
             "./node_modules/@types"
         ],
         "verbatimModuleSyntax": true
-    }
+    },
+    "exclude": [
+        "**/__tests__/**"
+    ]
 }

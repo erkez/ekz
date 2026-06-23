@@ -1,9 +1,8 @@
+import { None } from '@ekz/option';
 import { DateTime } from 'luxon';
 
-import { None } from '@ekz/option';
-
-import * as AsyncData from '../src/main/web/index';
-import type { AsyncData as AsyncDataType } from '../src/main/web/index';
+import * as AsyncData from '../index';
+import type { AsyncData as AsyncDataType } from '../index';
 
 describe('AsyncData', () => {
     it('Empty', () => {
@@ -104,7 +103,7 @@ describe('AsyncData', () => {
             Pending: jest.fn().mockReturnValue('Pending'),
             Ready: jest.fn().mockReturnValue('Ready'),
             PendingStale: jest.fn().mockReturnValue('PendingStale'),
-            FailedStale: jest.fn().mockReturnValue('FailedStale'),
+            FailedStale: jest.fn().mockReturnValue('FailedStale')
         };
 
         const getDefault = jest.fn().mockReturnValue('none');
@@ -144,7 +143,7 @@ describe('AsyncData', () => {
 
     it('should properly match default', () => {
         const matchers = {
-            Ready: jest.fn().mockReturnValue('Ready'),
+            Ready: jest.fn().mockReturnValue('Ready')
         };
 
         const getDefault = jest.fn().mockReturnValue('none');

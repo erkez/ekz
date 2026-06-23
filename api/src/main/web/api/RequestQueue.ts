@@ -20,7 +20,6 @@ export class RequestQueue<T> {
 
     private processQueue(): void {
         if (this.outstanding.size < this.paralellism && this.queue.size > 0) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const [deferred, factory] = this.queue.get(0)!;
             this.queue.shift();
 

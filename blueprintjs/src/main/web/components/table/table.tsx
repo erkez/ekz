@@ -86,7 +86,7 @@ export interface TableProps<T = unknown> extends Props {
     /**
      * Optional description for the empty table non-ideal state.
      */
-    noResultsDescription?: React.ReactChild;
+    noResultsDescription?: React.ReactNode;
 
     /**
      * Optional action for the empty table non-ideal state.
@@ -318,7 +318,7 @@ const Table: TypedTable = Object.assign(
                 <Spinner intent={Intent.PRIMARY} size={40} />
             );
 
-        const targetRef = React.useRef(ref);
+        const targetRef = React.useRef<HTMLDivElement | null>(ref);
         React.useEffect(() => {
             targetRef.current = ref;
         }, [ref]);
@@ -403,7 +403,7 @@ const Table: TypedTable = Object.assign(
 
         return (
             <ResizeSensor
-                targetRef={targetRef}
+                targetRef={targetRef as React.RefObject<HTMLElement>}
                 observeParents={true}
                 onResize={handleColumnsResize}>
                 <div

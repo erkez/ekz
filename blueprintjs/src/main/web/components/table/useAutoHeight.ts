@@ -13,8 +13,8 @@ export function useAutoHeight(
     theme: TableTheme | undefined,
     table: Table<unknown>,
     ref: HTMLDivElement | null,
-    bodyRef: React.RefObject<HTMLDivElement>,
-    nonIdealStateRef: React.RefObject<HTMLDivElement>
+    bodyRef: React.RefObject<HTMLDivElement | null>,
+    nonIdealStateRef: React.RefObject<HTMLDivElement | null>
 ): (entries: ResizeObserverEntry[]) => void {
     const visibleRowCount = table.getRowModel().rows.length ?? 0;
 

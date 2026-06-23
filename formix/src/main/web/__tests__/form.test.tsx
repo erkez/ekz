@@ -1,10 +1,9 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import * as React from 'react';
 
-import { useField } from '../src/main/web/fields';
-import { FormProvider, useForm, useFormWithFields, withForm } from '../src/main/web/form';
-import { defineField } from '../src/main/web/references';
+import { useField } from '../fields';
+import { FormProvider, useForm, useFormWithFields, withForm } from '../form';
+import { defineField } from '../references';
 
 describe('form', () => {
     it('should render an empty FormProvider', () => {

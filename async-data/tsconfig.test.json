@@ -1,0 +1,9 @@
+{
+    "extends": "../../../tsconfig.test.module.json",
+    "compilerOptions": {
+        "rootDir": "."
+    },
+    "include": [
+        "src/main/web/**/__tests__/**/*"
+    ]
+}

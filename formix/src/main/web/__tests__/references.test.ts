@@ -1,4 +1,4 @@
-import { defineArrayField, defineField, isArrayFieldRef, isFieldRef } from '../src/main/web/references';
+import { defineArrayField, defineField, isArrayFieldRef, isFieldRef } from '../references';
 
 describe('references', () => {
     describe('FieldRef', () => {

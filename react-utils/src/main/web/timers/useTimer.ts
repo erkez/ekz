@@ -15,7 +15,7 @@ export function useTimer(
     defaultTimeoutDurationMs = 0,
     timerFunction: TimerFunction = setTimeout
 ): TimeoutCallback {
-    const timeoutId = React.useRef<NodeJS.Timeout>(undefined);
+    const timeoutId = React.useRef<ReturnType<typeof setTimeout>>(undefined);
     const callbackCleanup = React.useRef<MaybeCleanup>(undefined);
 
     const clear = React.useCallback(() => {
