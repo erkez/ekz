@@ -1,6 +1,6 @@
 {
   "name": "@ekz/option",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "description": "Option/Maybe type for TypeScript",
   "homepage": "https://docs.ekz.io/option/",

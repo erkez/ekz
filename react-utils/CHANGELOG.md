@@ -1,6 +1,6 @@
-# @ekz/api
+# @ekz/react-utils
 
-## 1.0.3
+## 1.0.1
 
 ### Patch Changes
 
@@ -11,16 +11,3 @@
   - **@ekz/api**: replace Node `querystring` types in `stringifyQueryParams` with local option types (TypeScript 6); bump `axios` to `^1.18.0`.
   - **@ekz/react-utils**: fix `useTimer` ref typing for browser `setTimeout` (TypeScript 6).
   - **@ekz/async-data** and **@ekz/option**: compile and test tooling updates only; no public API changes.
-
-- Updated dependencies [6aa0479]
-  - @ekz/async-data@1.0.1
-  - @ekz/react-utils@1.0.1
-  - @ekz/option@2.0.1
-
-## 1.0.2
-
-### Patch Changes
-
-- Updated dependencies [074e8ca]
-  - @ekz/option@2.0.0
-  - @ekz/async-data@1.0.0

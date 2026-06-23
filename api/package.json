@@ -1,6 +1,6 @@
 {
   "name": "@ekz/api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "description": "HTTP/WebSocket API client for React",
   "homepage": "https://docs.ekz.io/api/",

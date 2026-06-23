@@ -1,6 +1,6 @@
 {
   "name": "@ekz/formix",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": "MIT",
   "description": "Type-safe React form to be used with Typescript",
   "homepage": "https://docs.ekz.io/formix/",
@@ -37,7 +37,7 @@
     "type-safe"
   ],
   "peerDependencies": {
-    "@ekz/option": "^2.0.0",
+    "@ekz/option": "^2.0.1",
     "immutable": "^4 || ^5",
     "react": "^16.8.0 || ^17 || ^18 || ^19",
     "typescript": "^4 || ^5 || ^6 "

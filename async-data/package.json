@@ -1,6 +1,6 @@
 {
   "name": "@ekz/async-data",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "Async data wrapper for promises",
   "homepage": "https://docs.ekz.io/async-data/",
@@ -45,7 +45,7 @@
     "luxon": "^3.7.2"
   },
   "peerDependencies": {
-    "@ekz/option": "^2.0.0"
+    "@ekz/option": "^2.0.1"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
