@@ -15,8 +15,8 @@
     "scripts": {
         "compile": "yarn workspaces foreach -Apt run compile",
         "lint": "yarn workspaces foreach -Apt run lint",
-        "typecheck:tests": "yarn workspaces foreach -Apt run typecheck:tests",
-        "test": "yarn workspaces foreach -Apt run test -- --ci --no-watchman",
+        "typecheck:tests": "yarn workspaces foreach -Apt --exclude ekz run typecheck:tests",
+        "test": "yarn workspaces foreach -Apt --exclude ekz run test",
         "dedupe:check": "yarn dedupe --check"
     },
     "devDependencies": {
