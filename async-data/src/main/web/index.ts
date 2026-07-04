@@ -13,12 +13,7 @@ export type AsyncDataMatch<A, B> = {
 };
 
 export type AsyncDataState =
-    | 'Empty'
-    | 'Ready'
-    | 'Pending'
-    | 'PendingStale'
-    | 'Failed'
-    | 'FailedStale';
+    'Empty' | 'Ready' | 'Pending' | 'PendingStale' | 'Failed' | 'FailedStale';
 
 export interface AsyncData<A> {
     readonly value: A;

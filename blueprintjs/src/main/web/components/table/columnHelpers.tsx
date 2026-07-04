@@ -25,11 +25,11 @@ import {
 export interface ColumnHelper<TData> {
     accessor: <
         TAccessor extends AccessorFn<TData> | DeepKeys<TData>,
-        TValue extends TAccessor extends AccessorFn<TData, infer TReturn>
+        TValue extends (TAccessor extends AccessorFn<TData, infer TReturn>
             ? TReturn
             : TAccessor extends DeepKeys<TData>
               ? DeepValue<TData, TAccessor>
-              : never
+              : never)
     >(
         accessor: TAccessor,
         column: TAccessor extends AccessorFn<TData>
@@ -40,11 +40,11 @@ export interface ColumnHelper<TData> {
     group: (column: GroupColumnDef<TData>) => ColumnDef<TData, unknown>;
     expansion: <
         TAccessor extends AccessorFn<TData> | DeepKeys<TData>,
-        TValue extends TAccessor extends AccessorFn<TData, infer TReturn>
+        TValue extends (TAccessor extends AccessorFn<TData, infer TReturn>
             ? TReturn
             : TAccessor extends DeepKeys<TData>
               ? DeepValue<TData, TAccessor>
-              : never
+              : never)
     >(
         accessor: TAccessor,
         column: ExpansionColumnDef<TData, TValue>
@@ -53,8 +53,7 @@ export interface ColumnHelper<TData> {
 }
 
 export type ColumnDefTemplate<TProps extends object> =
-    | string
-    | ((props: TProps) => React.ReactNode);
+    string | ((props: TProps) => React.ReactNode);
 
 export interface CellContext<TData extends RowData, TValue> {
     cell: Cell<TData, TValue>;
@@ -378,8 +377,7 @@ export interface IdentifiedColumnDef<TData, TValue = unknown> extends ColumnDefB
 }
 
 type ColumnIdentifiers<TData extends RowData, TValue> =
-    | IdIdentifier<TData, TValue>
-    | StringHeaderIdentifier;
+    IdIdentifier<TData, TValue> | StringHeaderIdentifier;
 
 export interface IdIdentifier<TData extends RowData, TValue> {
     id: string;
