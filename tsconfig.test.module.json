@@ -4,6 +4,7 @@
         "noEmit": true,
         "outDir": "./.tsbuild-test",
         "isolatedModules": true,
+        "resolveJsonModule": true,
         "declaration": false,
         "verbatimModuleSyntax": false,
         "types": [

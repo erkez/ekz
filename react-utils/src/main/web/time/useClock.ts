@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import * as React from 'react';
 
 export interface Clock {
-    readonly now: DateTime;
+    readonly now: DateTime<true>;
     /**
      * Updates the current time in the given interval.
      * @param intervalMs Interval for clock update in milliseconds. Defaults to 1000ms.
