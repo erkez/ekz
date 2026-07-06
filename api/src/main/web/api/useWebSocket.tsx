@@ -62,6 +62,7 @@ export function useWebSocket<In, Out>(
 
         return () => {
             subscribers.current.remove(subscriber);
+
             if (subscribers.current.size === 0) {
                 setHasSubscribers(false);
             }

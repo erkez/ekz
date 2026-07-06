@@ -17,6 +17,7 @@ const stopPropagation = (e: React.MouseEvent): void => e.stopPropagation();
 
 const getHeaderMinWidth = (header: HeaderGroupProps['headerGroup']['headers'][number]): number => {
     if (header.isPlaceholder) return 0;
+
     if (header.subHeaders != null && header.subHeaders.length > 0) {
         const childrenMin = header.subHeaders.reduce(
             (sum, subHeader) => sum + getHeaderMinWidth(subHeader),
@@ -25,6 +26,7 @@ const getHeaderMinWidth = (header: HeaderGroupProps['headerGroup']['headers'][nu
 
         return childrenMin + COLUMN_BORDER_PX;
     }
+
     return header.column.columnDef.minSize ?? LEAF_MIN_TOTAL_WIDTH_PX;
 };
 

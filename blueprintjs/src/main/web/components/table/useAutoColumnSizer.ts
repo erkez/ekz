@@ -20,6 +20,7 @@ export function useAutoColumnSizer(
             visibleFlatColumns.length * CELL_PADDING - // cell padding
             (visibleFlatColumns.length - CELL_BORDER) - // cell border
             (theme === TableTheme.Segment ? 40 : 0); // theme padding
+
         if (availableWidth > 0) {
             const { autoColumns, totalFixedSize } = visibleFlatColumns.reduce<{
                 autoColumns: string[];
@@ -43,6 +44,7 @@ export function useAutoColumnSizer(
                     totalFixedSize: 0
                 }
             );
+
             if (autoColumns.length > 0) {
                 const remainingWidthPerColumn = Math.max(
                     (availableWidth - totalFixedSize) / autoColumns.length,

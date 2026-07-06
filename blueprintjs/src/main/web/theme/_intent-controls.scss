@@ -1,0 +1,42 @@
+@import "../common/variables";
+
+// Blueprint's checkbox/radio/switch controls don't read the --bp-intent-primary-*
+// custom properties that Button/Tag/Callout/... use for theming — they hardcode
+// Blueprint's own stock blue directly in the compiled CSS (see
+// @blueprintjs/core/lib/css/blueprint.css, ".#{$ns}-control input:checked ~ ...").
+// This normalizes them onto the same contract, so overriding --bp-intent-primary-*
+// (see ./blueprintTheme.ts) re-themes checkboxes/radios/switches too.
+
+.#{$ns}-control input:checked ~ .#{$ns}-control-indicator {
+    background-color: var(--bp-intent-primary-rest);
+    color: var(--bp-intent-primary-foreground);
+}
+
+.#{$ns}-control:hover input:checked ~ .#{$ns}-control-indicator {
+    background-color: var(--bp-intent-primary-hover);
+}
+
+.#{$ns}-control input:not(:disabled):active:checked ~ .#{$ns}-control-indicator {
+    background: var(--bp-intent-primary-active);
+}
+
+.#{$ns}-control input:disabled:checked ~ .#{$ns}-control-indicator {
+    background: var(--bp-intent-primary-disabled);
+}
+
+.#{$ns}-control.#{$ns}-switch input:checked ~ .#{$ns}-control-indicator {
+    background: var(--bp-intent-primary-rest);
+    color: var(--bp-intent-primary-foreground);
+}
+
+.#{$ns}-control.#{$ns}-switch:hover input:checked ~ .#{$ns}-control-indicator {
+    background: var(--bp-intent-primary-hover);
+}
+
+.#{$ns}-control.#{$ns}-switch input:checked:not(:disabled):active ~ .#{$ns}-control-indicator {
+    background: var(--bp-intent-primary-active);
+}
+
+.#{$ns}-control.#{$ns}-switch input:checked:disabled ~ .#{$ns}-control-indicator {
+    background: var(--bp-intent-primary-disabled);
+}

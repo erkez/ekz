@@ -46,6 +46,7 @@ export function useAutoHeight(
                 Math.max((parentHeight - nonBodyTotalSize) / averageRowHeight, minPageSize),
                 maxPageSize
             );
+
             if (table.options.debugTable) {
                 console.log('Calculating page size', {
                     averageRowHeight,
@@ -58,6 +59,7 @@ export function useAutoHeight(
                     visibleRowCount
                 });
             }
+
             table.setPageSize(Math.floor(pageSize));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

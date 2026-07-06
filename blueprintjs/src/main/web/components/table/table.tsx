@@ -249,6 +249,7 @@ const Table: TypedTable = Object.assign(
 
         const selectedPageSizeItem = React.useMemo(() => {
             if (!pageSizeSelectItems) return undefined;
+
             return pageSizeSelectItems.find((opt) => opt.value === manualPageSizeValue);
         }, [pageSizeSelectItems, manualPageSizeValue]);
 
@@ -288,6 +289,7 @@ const Table: TypedTable = Object.assign(
         const handleColumnsResize = React.useCallback(
             (entries: ResizeObserverEntry[]) => {
                 const rawWidth = entries[0]?.contentRect?.width;
+
                 if (rawWidth == null) return;
 
                 const width = Math.round(rawWidth);
@@ -295,9 +297,11 @@ const Table: TypedTable = Object.assign(
 
                 if (prev == null || Math.abs(prev - width) >= 2) {
                     lastObservedWidthRef.current = width;
+
                     if (resizeRafIdRef.current != null) {
                         cancelAnimationFrame(resizeRafIdRef.current);
                     }
+
                     resizeRafIdRef.current = requestAnimationFrame(() => {
                         recalcColumnSizing();
                         resizeRafIdRef.current = null;
@@ -346,6 +350,7 @@ const Table: TypedTable = Object.assign(
                 if (!modifiers.matchesPredicate) {
                     return null;
                 }
+
                 return (
                     <MenuItem
                         key={item.value}
@@ -396,6 +401,7 @@ const Table: TypedTable = Object.assign(
             if (!shouldAutoSelect) return;
 
             const firstNumericOption = pageSizeSelectItems?.find((o) => o.value != null);
+
             if (firstNumericOption) {
                 setManualPageSizeValue(firstNumericOption.value);
             }
@@ -593,6 +599,7 @@ const TableBody = React.forwardRef(function TableBody<T>(
                     clickable && onRowClick != null
                         ? (event: React.MouseEvent<HTMLDivElement>): void => {
                               let target: Element = event.target as Element;
+
                               while (
                                   (target instanceof HTMLElement || target instanceof SVGElement) &&
                                   target.parentElement instanceof Element &&
@@ -601,6 +608,7 @@ const TableBody = React.forwardRef(function TableBody<T>(
                               ) {
                                   target = target.parentElement;
                               }
+
                               if (!('dataset' in target) || !target.dataset.skipRowClick) {
                                   onRowClick(row.original, row, event);
                               }

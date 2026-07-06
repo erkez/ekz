@@ -16,19 +16,23 @@ export class StorageService<T> {
 
     get(): T {
         const value = this.storage.get();
+
         if (value == null) {
             return this.defaultValue;
         }
+
         return this.deserialize(value);
     }
 
     set(value: T): void {
         const serialized = this.serialize(value);
+
         if (serialized != null) {
             this.storage.set(serialized);
         } else {
             this.delete();
         }
+
         this.emitChange();
     }
 
@@ -46,6 +50,7 @@ export class StorageService<T> {
     addChangeListener(listener: ChangeListener<T>): Unsubscribe {
         const unsubscribe = (): void => {
             const index = this.changeListeners.indexOf(listener);
+
             if (index !== -1) {
                 this.changeListeners.splice(index, 1);
             }
