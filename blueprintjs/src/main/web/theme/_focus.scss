@@ -1,0 +1,16 @@
+@import "../common/variables";
+
+// Blueprint hardcodes the :focus outline color directly in compiled CSS instead of
+// reading a custom property (see @blueprintjs/core/lib/css/blueprint.css, ":focus").
+// This normalizes it onto the --bp-emphasis-focus-color contract set by
+// applyBlueprintTheme (see ./blueprintTheme.ts), same idea as intent-controls.scss.
+// Fallbacks match Blueprint's own hardcoded light/dark defaults.
+
+:focus {
+    outline-color: var(--bp-emphasis-focus-color, rgba(33, 93, 176, 0.752));
+}
+
+.#{$ns}-dark :focus,
+[data-bp-color-scheme='dark'] :focus {
+    outline-color: var(--bp-emphasis-focus-color, rgba(138, 187, 255, 0.752));
+}

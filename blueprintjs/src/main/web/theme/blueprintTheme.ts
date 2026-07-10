@@ -15,7 +15,25 @@ export type IntentShades = {
     foreground?: string;
 };
 
-export type BlueprintTheme = Partial<Record<IntentName, IntentShades>>;
+export type SurfaceShadows = Partial<Record<0 | 1 | 2 | 3 | 4, string>>;
+
+export type SurfaceText = {
+    default?: string;
+    hover?: string;
+    disabled?: string;
+    muted?: string;
+};
+
+export type BlueprintTheme = Partial<Record<IntentName, IntentShades>> & {
+    spacing?: string;
+    borderRadius?: string;
+    borderWidth?: string;
+    borderColorDefault?: string;
+    borderColorStrong?: string;
+    layerOpacity?: string;
+    shadows?: SurfaceShadows;
+    text?: SurfaceText;
+};
 
 function clampByte(value: number): number {
     return Math.min(255, Math.max(0, Math.round(value)));
@@ -57,13 +75,13 @@ function cssPropsForIntent(intent: IntentName, shades: IntentShades): Record<str
     };
 }
 
+const intentNames: IntentName[] = ['primary', 'success', 'warning', 'danger', 'default'];
+
 export function applyBlueprintTheme(
     theme: BlueprintTheme,
     target: HTMLElement = document.documentElement
 ): void {
-    const intents = Object.keys(theme) as IntentName[];
-
-    for (const intent of intents) {
+    for (const intent of intentNames) {
         const shades = theme[intent];
 
         if (!shades) {
@@ -79,5 +97,57 @@ export function applyBlueprintTheme(
 
     if (theme.primary) {
         target.style.setProperty('--bp-emphasis-focus-color', theme.primary.rest);
+    }
+
+    if (theme.spacing != null) {
+        target.style.setProperty('--bp-surface-spacing', theme.spacing);
+    }
+
+    if (theme.borderRadius != null) {
+        target.style.setProperty('--bp-surface-border-radius', theme.borderRadius);
+    }
+
+    if (theme.borderWidth != null) {
+        target.style.setProperty('--bp-surface-border-width', theme.borderWidth);
+    }
+
+    if (theme.borderColorDefault != null) {
+        target.style.setProperty('--bp-surface-border-color-default', theme.borderColorDefault);
+    }
+
+    if (theme.borderColorStrong != null) {
+        target.style.setProperty('--bp-surface-border-color-strong', theme.borderColorStrong);
+    }
+
+    if (theme.layerOpacity != null) {
+        target.style.setProperty('--bp-surface-layer-opacity', theme.layerOpacity);
+    }
+
+    if (theme.shadows) {
+        for (const level of Object.keys(theme.shadows)) {
+            const value = theme.shadows[level as unknown as keyof SurfaceShadows];
+
+            if (value != null) {
+                target.style.setProperty(`--bp-surface-shadow-${level}`, value);
+            }
+        }
+    }
+
+    if (theme.text) {
+        if (theme.text.default != null) {
+            target.style.setProperty('--bp-typography-color-default-rest', theme.text.default);
+        }
+
+        if (theme.text.hover != null) {
+            target.style.setProperty('--bp-typography-color-default-hover', theme.text.hover);
+        }
+
+        if (theme.text.disabled != null) {
+            target.style.setProperty('--bp-typography-color-default-disabled', theme.text.disabled);
+        }
+
+        if (theme.text.muted != null) {
+            target.style.setProperty('--bp-typography-color-muted', theme.text.muted);
+        }
     }
 }
