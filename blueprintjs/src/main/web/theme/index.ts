@@ -3,3 +3,4 @@ export type { BlueprintTheme, IntentName, IntentShades } from './blueprintTheme'
 export { useBlueprintTheme } from './useBlueprintTheme';
 export { blueprintBaseTheme } from './baseTheme';
 export type { BlueprintBaseTheme } from './baseTheme';
+export { spacing, GAP } from './spacing';
