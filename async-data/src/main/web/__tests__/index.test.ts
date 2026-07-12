@@ -305,11 +305,11 @@ describe('AsyncData', () => {
     it('should properly get duration of pending data', () => {
         expect.assertions(2);
         const startTime = DateTime.utc();
-        const currentTime = DateTime.utc().plus({ milliseconds: 850 });
+        const currentTime = startTime.plus({ milliseconds: 850 });
 
         let ad = AsyncData.Pending(startTime);
         let duration = ad.duration(currentTime);
-        duration.map((value) => expect(value).toBeCloseTo(850, 1));
+        duration.map((value) => expect(value).toBe(850));
 
         ad = ad.ready(2);
         duration = ad.duration(currentTime);
