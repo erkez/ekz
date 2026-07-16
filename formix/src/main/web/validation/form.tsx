@@ -34,13 +34,18 @@ export function useFormValidation(getFieldState: FormApi['getFieldState']): Form
 
     const getValidationResult: FormValidationApi['getValidationResult'] = React.useCallback(
         (fieldRef) => {
-            return validations.get(fieldRef, OrderedSet<FieldValidation<unknown>>()).reduce(
+            const result = validations.get(fieldRef, OrderedSet<FieldValidation<unknown>>()).reduce(
                 (result, validation) => ({
                     error: result.error || validation.error,
                     pending: result.pending || validation.pending
                 }),
                 EmptyValidationResult
             );
+
+            // The reduce allocates a fresh object even for a passing field, which makes every
+            // `useField` on a validated field unstable across renders. Collapse the no-error,
+            // no-pending case back to the frozen singleton so identity stays stable.
+            return result.error == null && !result.pending ? EmptyValidationResult : result;
         },
         [validations]
     );
