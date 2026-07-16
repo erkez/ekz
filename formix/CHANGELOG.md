@@ -1,5 +1,11 @@
 # @ekz/formix
 
+## 2.1.1
+
+### Patch Changes
+
+- bec4dc8: Keep `useField` referentially stable for validated fields. `getValidationResult` now collapses a no-error, no-pending result back to the shared empty singleton instead of allocating a fresh object each call, so a passing validated field's `useField` value no longer changes identity every render. Previously this destabilised any `useMemo`/effect keyed on the field — e.g. a paginated-list query whose debounced fetch would then never settle.
+
 ## 2.1.0
 
 ### Minor Changes
