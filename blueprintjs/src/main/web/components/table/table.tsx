@@ -641,6 +641,15 @@ const TableBody = React.forwardRef(function TableBody<T>(
                                         )}
                                         data-ellipsize={props.ellipsize}
                                         data-skip-row-click={definition.skipRowClick}
+                                        // Also needed for portaled content (e.g. Alert/Dialog):
+                                        // React's synthetic onClick bubbles through the fiber tree
+                                        // regardless of DOM position, but the row's DOM-based skip
+                                        // check above can't see clicks originating in a portal.
+                                        onClick={
+                                            definition.skipRowClick
+                                                ? (event) => event.stopPropagation()
+                                                : undefined
+                                        }
                                         style={{
                                             width: `calc(var(--col-${cell.column.id}-size) * 1px)`
                                         }}>
