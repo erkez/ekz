@@ -55,6 +55,6 @@
     "compile:esnext": "tsc -p ./src/main/web -t esnext --outDir ./lib/esnext",
     "compile:css": "sass --load-path=node_modules --load-path=../node_modules --load-path=../../../node_modules src/main/web:lib/css",
     "dev": "yarn compile:esm --watch",
-    "prepublish": "yarn clean && yarn lint && yarn compile"
+    "prepack": "yarn clean && yarn lint && yarn compile"
   }
 }

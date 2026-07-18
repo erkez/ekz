@@ -41,6 +41,6 @@
     "compile:cjs": "tsc -p ./src/main/web -m commonjs --verbatimModuleSyntax false --outDir ./lib/cjs",
     "compile:esnext": "tsc -p ./src/main/web -t esnext --outDir ./lib/esnext",
     "dev": "yarn compile:esm --watch",
-    "prepublish": "yarn clean && yarn lint && yarn compile"
+    "prepack": "yarn clean && yarn lint && yarn compile"
   }
 }

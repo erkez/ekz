@@ -71,7 +71,7 @@
     "dev": "yarn compile:esm --watch",
     "test": "yarn typecheck:tests && jest",
     "typecheck:tests": "tsc -p tsconfig.test.json",
-    "prepublish": "yarn clean && yarn test --ci --no-watchman && yarn lint && yarn compile"
+    "prepack": "yarn clean && yarn test --ci --no-watchman && yarn lint && yarn compile"
   },
   "jest": {
     "preset": "ts-jest/presets/default",
