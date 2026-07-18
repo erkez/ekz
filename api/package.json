@@ -22,9 +22,9 @@
     "README.md"
   ],
   "dependencies": {
-    "@ekz/async-data": "workspace:^",
-    "@ekz/option": "workspace:^",
-    "@ekz/react-utils": "workspace:^",
+    "@ekz/async-data": "^1.0.1",
+    "@ekz/option": "^2.0.1",
+    "@ekz/react-utils": "^1.0.1",
     "axios": "^1.18.1",
     "bluebird": "^3.7.2",
     "invariant": "^2.2.4",
