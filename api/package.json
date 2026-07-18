@@ -1,6 +1,6 @@
 {
   "name": "@ekz/api",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "description": "HTTP/WebSocket API client for React",
   "homepage": "https://docs.ekz.io/api/",
@@ -22,9 +22,9 @@
     "README.md"
   ],
   "dependencies": {
-    "@ekz/async-data": "^1.0.1",
-    "@ekz/option": "^2.0.1",
-    "@ekz/react-utils": "^1.0.1",
+    "@ekz/async-data": "^1.0.2",
+    "@ekz/option": "^2.0.2",
+    "@ekz/react-utils": "^1.0.2",
     "axios": "^1.18.1",
     "bluebird": "^3.7.2",
     "invariant": "^2.2.4",

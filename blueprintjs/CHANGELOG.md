@@ -1,5 +1,25 @@
 # @ekz/blueprintjs
 
+## 0.2.1
+
+### Patch Changes
+
+- 23d366c: Include declared `lib` (CJS, ESM, `.d.ts`) artifacts in published tarballs.
+
+  The build was wired to a `prepublish` script, which npm ≥7 and Yarn Berry do not run at publish
+  time, so `changeset publish` (`npm publish` under the hood) shipped tarballs containing only
+  `package.json`, `README.md`, and `LICENSE`. `lib` is gitignored, so it was never present in a clean
+  CI checkout either. Renamed the hook to `prepack`, which runs for both `npm publish`/`npm pack` and
+  `yarn npm publish`/`yarn pack`, so `lib` is built into the tarball and `npm pack` output can be
+  verified locally.
+
+- cc378db: Fix internal dependencies published with the `workspace:^` protocol instead of a resolvable semver range, which broke installs outside the monorepo (e.g. `pnpm add @ekz/api` failing with `ERR_PNPM_WORKSPACE_PKG_NOT_FOUND`).
+
+  Fixes erkez/ekz#1.
+
+- Updated dependencies [23d366c]
+  - @ekz/react-utils@1.0.2
+
 ## 0.2.0
 
 ### Minor Changes

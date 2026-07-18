@@ -1,6 +1,6 @@
 {
   "name": "@ekz/blueprintjs",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "@blueprintjs/core": "^6.16.0",
     "@blueprintjs/icons": "^6.11.0",
     "@blueprintjs/select": "^6.3.0",
-    "@ekz/react-utils": "^1.0.1",
+    "@ekz/react-utils": "^1.0.2",
     "@tanstack/react-table": "^8.21.3",
     "@tanstack/react-virtual": "^3.14.4",
     "@tanstack/table-core": "^8.21.3",

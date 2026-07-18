@@ -2377,9 +2377,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ekz/api@workspace:api"
   dependencies:
-    "@ekz/async-data": "npm:^1.0.1"
-    "@ekz/option": "npm:^2.0.1"
-    "@ekz/react-utils": "npm:^1.0.1"
+    "@ekz/async-data": "npm:^1.0.2"
+    "@ekz/option": "npm:^2.0.2"
+    "@ekz/react-utils": "npm:^1.0.2"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/react": "npm:^16.3.2"
     "@types/bluebird": "npm:^3.5.42"
@@ -2402,11 +2402,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ekz/async-data@npm:^1.0.1, @ekz/async-data@workspace:async-data":
+"@ekz/async-data@npm:^1.0.2, @ekz/async-data@workspace:async-data":
   version: 0.0.0-use.local
   resolution: "@ekz/async-data@workspace:async-data"
   dependencies:
-    "@ekz/option": "npm:^2.0.1"
+    "@ekz/option": "npm:^2.0.2"
     "@types/jest": "npm:^30.0.0"
     "@types/luxon": "npm:^3.7.2"
     jest: "npm:^30.4.2"
@@ -2415,7 +2415,7 @@ __metadata:
     ts-jest: "npm:^29.4.11"
     typescript: "npm:^6.0.3"
   peerDependencies:
-    "@ekz/option": ^2.0.1
+    "@ekz/option": ^2.0.2
   languageName: unknown
   linkType: soft
 
@@ -2426,7 +2426,7 @@ __metadata:
     "@blueprintjs/core": "npm:^6.16.0"
     "@blueprintjs/icons": "npm:^6.11.0"
     "@blueprintjs/select": "npm:^6.3.0"
-    "@ekz/react-utils": "npm:^1.0.1"
+    "@ekz/react-utils": "npm:^1.0.2"
     "@tanstack/react-table": "npm:^8.21.3"
     "@tanstack/react-virtual": "npm:^3.14.4"
     "@tanstack/table-core": "npm:^8.21.3"
@@ -2490,14 +2490,14 @@ __metadata:
     ts-jest: "npm:^29.4.11"
     typescript: "npm:^6.0.3"
   peerDependencies:
-    "@ekz/option": ^2.0.1
+    "@ekz/option": ^2.0.2
     immutable: ^4 || ^5
     react: ^16.8.0 || ^17 || ^18 || ^19
     typescript: "^4 || ^5 || ^6 "
   languageName: unknown
   linkType: soft
 
-"@ekz/option@npm:^2.0.1, @ekz/option@workspace:^, @ekz/option@workspace:option":
+"@ekz/option@npm:^2.0.2, @ekz/option@workspace:^, @ekz/option@workspace:option":
   version: 0.0.0-use.local
   resolution: "@ekz/option@workspace:option"
   dependencies:
@@ -2546,7 +2546,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ekz/react-utils@npm:^1.0.1, @ekz/react-utils@workspace:react-utils":
+"@ekz/react-utils@npm:^1.0.2, @ekz/react-utils@workspace:react-utils":
   version: 0.0.0-use.local
   resolution: "@ekz/react-utils@workspace:react-utils"
   dependencies:
