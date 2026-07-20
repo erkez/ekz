@@ -19,12 +19,12 @@
     "lib"
   ],
   "dependencies": {
-    "@blueprintjs/core": "^6.16.0",
-    "@blueprintjs/icons": "^6.11.0",
-    "@blueprintjs/select": "^6.3.0",
+    "@blueprintjs/core": "^6.17.2",
+    "@blueprintjs/icons": "^6.13.0",
+    "@blueprintjs/select": "^6.3.3",
     "@ekz/react-utils": "^1.0.2",
     "@tanstack/react-table": "^8.21.3",
-    "@tanstack/react-virtual": "^3.14.4",
+    "@tanstack/react-virtual": "^3.14.6",
     "@tanstack/table-core": "^8.21.3",
     "classnames": "^2.5.1",
     "invariant": "^2.2.4"
