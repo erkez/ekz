@@ -48,5 +48,22 @@ export default [
                 { blankLine: 'always', prev: ['if', 'for', 'while', 'try'], next: '*' }
             ]
         }
+    },
+    {
+        files: ['modules/karlsoft/ares/**/*.{ts,tsx}', 'modules/vrnw/regio-report/**/*.{ts,tsx}'],
+        rules: {
+            'no-restricted-imports': [
+                'error',
+                {
+                    patterns: [
+                        {
+                            group: ['@blueprintjs/*'],
+                            message:
+                                'Import Blueprint via @karlsoft/core, which re-exports it and replaces Alert, Button, Callout and Card with the enhanced versions.'
+                        }
+                    ]
+                }
+            ]
+        }
     }
 ];
