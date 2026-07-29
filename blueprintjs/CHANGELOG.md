@@ -1,5 +1,15 @@
 # @ekz/blueprintjs
 
+## 0.3.0
+
+### Minor Changes
+
+- 864c518: Stop re-exporting `@blueprintjs/core` and `@blueprintjs/select`.
+
+  The package exports only its own additions again — `Table`, `Pagination`, the theme helpers and `Classes`. Consumers that relied on Blueprint's own exports arriving through this package must import them from `@blueprintjs/core` / `@blueprintjs/select` directly.
+
+  Re-exporting all of Blueprint made this package's public API Blueprint's API, so every Blueprint breaking change became a breaking change here.
+
 ## 0.2.1
 
 ### Patch Changes
