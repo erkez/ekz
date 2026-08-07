@@ -2,7 +2,7 @@
     "extends": "./node_modules/@ekz/packer/tsconfig/recommended",
     "compilerOptions": {
         "ignoreDeprecations": "6.0",
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "target": "es2021",
         "module": "es2020",
         "lib": [
