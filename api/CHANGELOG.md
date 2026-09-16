@@ -1,5 +1,19 @@
 # @ekz/api
 
+## 1.1.0
+
+### Minor Changes
+
+- c4f292d: Support bearer-token authentication in the HTTP client.
+
+  - `RequestConfig.headers` is now sent with the request (it was declared but never passed to axios).
+  - New `ApiClientOptions.onRequest` runs before every attempt, including retries, to adjust the outgoing config — e.g. attach `Authorization: Bearer <token>`.
+  - New `ApiClientOptions.onUnauthorized` replaces the page redirect on an unauthorized status: refresh the token and call `retry()` to re-send the request once. Without it the redirect stays as before.
+  - New `ApiClientOptions.withCredentials` (default `true`).
+  - `POST` and `PATCH` are no longer retried on `504` by default, since the server may have acted on a request whose response was lost. Set `retryAttempts` explicitly to opt in.
+  - Network errors are retried like a `504`. The check compared `error.name` with `'Network Error'`, which axios never sets, so it had never fired.
+  - `createApiClient` and the option types are exported; `ApiClientProvider` accepts every `ApiClientOptions` field as a prop.
+
 ## 1.0.4
 
 ### Patch Changes
