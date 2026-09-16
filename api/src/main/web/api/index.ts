@@ -2,7 +2,14 @@ import { apiClientProviderFactory } from './apiClientProviderFactory';
 
 export { apiClientProviderFactory } from './apiClientProviderFactory';
 export type { ApiClientProviderFactory, ApiClientProviderProps } from './apiClientProviderFactory';
-export type { ApiClient, RequestConfig } from './ApiClient';
+export { createApiClient } from './ApiClient';
+export type {
+    ApiClient,
+    ApiClientOptions,
+    RequestConfig,
+    RequestHook,
+    UnauthorizedHandler
+} from './ApiClient';
 
 export { useRequestQueue, type RequestQueue, type Deferred } from './RequestQueue';
 

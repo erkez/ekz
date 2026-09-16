@@ -1,13 +1,11 @@
 import invariant from 'invariant';
 import * as React from 'react';
 
-import type { ApiClient } from './ApiClient';
+import type { ApiClient, ApiClientOptions } from './ApiClient';
 import { createApiClient } from './ApiClient';
 
-export interface ApiClientProviderProps {
+export interface ApiClientProviderProps extends ApiClientOptions {
     baseUrl: string;
-    unauthorizedStatus?: Array<number>;
-    unauthorizedRedirectPath?: string;
     children: React.ReactNode;
 }
 
@@ -28,12 +26,21 @@ export function apiClientProviderFactory(): ApiClientProviderFactory {
     });
 
     function ApiClientProvider(props: ApiClientProviderProps): React.ReactElement {
-        const apiClientOptions = React.useMemo(() => {
+        const apiClientOptions = React.useMemo((): ApiClientOptions => {
             return {
                 unauthorizedRedirectPath: props.unauthorizedRedirectPath ?? '/',
-                unauthorizedStatus: props.unauthorizedStatus ?? [401]
+                unauthorizedStatus: props.unauthorizedStatus ?? [401],
+                onRequest: props.onRequest,
+                onUnauthorized: props.onUnauthorized,
+                withCredentials: props.withCredentials
             };
-        }, [props.unauthorizedRedirectPath, props.unauthorizedStatus]);
+        }, [
+            props.unauthorizedRedirectPath,
+            props.unauthorizedStatus,
+            props.onRequest,
+            props.onUnauthorized,
+            props.withCredentials
+        ]);
 
         const apiClient = React.useMemo(() => {
             return createApiClient(props.baseUrl, apiClientOptions);

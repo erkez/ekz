@@ -1,5 +1,12 @@
 import { default as Axios, AxiosError } from 'axios';
-import type { AxiosResponse, Method, ResponseType, AxiosInstance } from 'axios';
+import type {
+    AxiosInstance,
+    AxiosRequestConfig,
+    AxiosResponse,
+    Method,
+    RawAxiosRequestHeaders,
+    ResponseType
+} from 'axios';
 import Bluebird from 'bluebird';
 
 import { ExpectedApiError, type ApiResultFailure } from './domain';
@@ -7,7 +14,7 @@ import { stringifyQueryParams } from './utils';
 
 export interface RequestConfig<Body> {
     readonly query?: Record<string, unknown>;
-    readonly headers?: Record<string, unknown>;
+    readonly headers?: RawAxiosRequestHeaders;
     body?: Body;
     responseType?: ResponseType;
     skipAuthentication?: boolean;
@@ -29,10 +36,24 @@ export interface ApiClient {
     ): Bluebird<AxiosResponse<B>>;
 }
 
+export type RequestHook = (
+    config: AxiosRequestConfig
+) => AxiosRequestConfig | PromiseLike<AxiosRequestConfig>;
+
+export type UnauthorizedHandler = (
+    error: AxiosError,
+    retry: () => Bluebird<AxiosResponse>
+) => PromiseLike<AxiosResponse> | void;
+
 export interface ApiClientOptions {
     unauthorizedRedirectPath?: string;
     unauthorizedStatus?: ReadonlyArray<number>;
+    onRequest?: RequestHook;
+    onUnauthorized?: UnauthorizedHandler;
+    withCredentials?: boolean;
 }
+
+const IdempotentMethods: ReadonlySet<string> = new Set(['GET', 'HEAD', 'OPTIONS', 'PUT', 'DELETE']);
 
 export function createApiClient(baseUrl: string, options: ApiClientOptions = {}): ApiClient {
     const axios: AxiosInstance = Axios.create();
@@ -48,37 +69,50 @@ export function createApiClient(baseUrl: string, options: ApiClientOptions = {})
 
         const request = Bluebird.resolve()
             .delay(10)
-            .then(() =>
-                axios({
+            .then(() => {
+                const axiosConfig: AxiosRequestConfig = {
                     url,
                     baseURL: baseUrl,
                     method,
+                    headers: config.headers,
                     params: config.query != null ? config.query : {},
                     paramsSerializer: (params) => stringifyQueryParams(params),
                     responseType: config.responseType || 'json',
                     data: config.body,
-                    withCredentials: true,
+                    withCredentials: options.withCredentials ?? true,
                     cancelToken: cancelTokenSource.token
-                })
-            );
+                };
+                return options.onRequest != null ? options.onRequest(axiosConfig) : axiosConfig;
+            })
+            .then((axiosConfig) => axios(axiosConfig));
 
         return request
             .catch((error: AxiosError<R>) => {
-                if (
-                    !config.skipAuthentication &&
-                    unauthorizedStatus.has(error.response?.status ?? 0)
-                ) {
-                    window.location.href = options.unauthorizedRedirectPath || '';
+                const errorStatus = error.response?.status;
+
+                if (!config.skipAuthentication && unauthorizedStatus.has(errorStatus ?? 0)) {
+                    if (options.onUnauthorized != null) {
+                        let retried: Bluebird<AxiosResponse<R>> | undefined;
+                        const retry = (): Bluebird<AxiosResponse<R>> =>
+                            (retried ??= performRequest<B, R>(url, method, {
+                                ...config,
+                                skipAuthentication: true
+                            }));
+                        const handled = options.onUnauthorized(error, retry);
+
+                        if (handled != null) {
+                            return handled as PromiseLike<AxiosResponse<R>>;
+                        }
+                    } else {
+                        window.location.href = options.unauthorizedRedirectPath || '';
+                    }
                 }
 
-                throw error;
-            })
-            .catch((error: AxiosError<R>) => {
-                const retryAttempts = config.retryAttempts ?? 3;
+                const retryAttempts =
+                    config.retryAttempts ?? (IdempotentMethods.has(method.toUpperCase()) ? 3 : 0);
                 const retryNumber = config.retryNumber ?? 0;
                 const backoffMs = Math.min(500 * Math.pow(2, retryNumber), 30000);
-                const errorStatus = error.response?.status;
-                const shouldRetry = errorStatus === 504 || error.name === 'Network Error';
+                const shouldRetry = errorStatus === 504 || error.code === AxiosError.ERR_NETWORK;
 
                 if (shouldRetry && retryAttempts > 0) {
                     return Bluebird.delay(backoffMs).then(() =>

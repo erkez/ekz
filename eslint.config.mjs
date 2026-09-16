@@ -4,6 +4,14 @@ import tseslint from 'typescript-eslint';
 import globals from 'globals';
 import stylistic from '@stylistic/eslint-plugin';
 
+// An `exports` map does no extension resolution, so an extensionless subpath such as
+// `@karlsoft/core/lib/esm/querydsl` stops resolving the moment one is declared.
+const noBuildOutputImports = {
+    group: ['@karlsoft/*/lib/**', '@ekz/*/lib/**', '@vrnw/*/lib/**'],
+    message:
+        'Import from the package root — its build output layout is not part of the public surface.'
+};
+
 export default [
     {
         ignores: ['**/lib/**', '**/dist/**', '**/node_modules/**']
@@ -50,12 +58,19 @@ export default [
         }
     },
     {
+        files: ['**/*.{ts,tsx}'],
+        rules: {
+            'no-restricted-imports': ['error', { patterns: [noBuildOutputImports] }]
+        }
+    },
+    {
         files: ['modules/karlsoft/ares/**/*.{ts,tsx}', 'modules/vrnw/regio-report/**/*.{ts,tsx}'],
         rules: {
             'no-restricted-imports': [
                 'error',
                 {
                     patterns: [
+                        noBuildOutputImports,
                         {
                             group: ['@blueprintjs/*'],
                             message:
