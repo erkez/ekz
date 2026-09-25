@@ -37,6 +37,12 @@ export function toDateTime(value: GenericDateTime): DateTime {
         return DateTime.fromISO(value.toISOString());
     }
 
+    // A date without a time names a calendar day, not UTC midnight; as an instant it would
+    // render as the previous day anywhere west of UTC.
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        return DateTime.fromISO(value);
+    }
+
     try {
         return DateTime.fromISO(new Date(value).toISOString());
     } catch (e) {
