@@ -1,4 +1,4 @@
-import { Map, Seq } from 'immutable';
+import { List, Map, Seq } from 'immutable';
 import * as React from 'react';
 
 import { isArrayFieldRef, isFieldRef } from './references';
@@ -109,6 +109,8 @@ const FormContext = React.createContext<FormApi>({
     registerValidation: noop,
     isFieldValid: noop,
     reset: noop,
+    invalidFields: List(),
+    hasErrors: false,
     pending: false,
     valid: false,
     modified: false

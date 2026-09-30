@@ -1,4 +1,4 @@
-import qs from 'querystring';
+import qs from 'qs';
 
 const QueryStringDefaultOptions = {
     skipNulls: true,
@@ -10,15 +10,7 @@ interface QueryStringifyOptions {
     indices?: boolean;
 }
 
-type QueryParamsRecord = Record<
-    string,
-    | string
-    | number
-    | boolean
-    | ReadonlyArray<string | number | boolean | null | undefined>
-    | null
-    | undefined
->;
+type QueryParamsRecord = Record<string, unknown>;
 
 export function stringifyQueryParams(params: unknown, options?: QueryStringifyOptions): string {
     const mergedOptions = { ...QueryStringDefaultOptions, ...options };
@@ -29,5 +21,5 @@ export function stringifyQueryParams(params: unknown, options?: QueryStringifyOp
         typeof params.toJS === 'function'
             ? (params.toJS() as QueryParamsRecord)
             : (params as QueryParamsRecord);
-    return qs.stringify(paramsAsObject, undefined, undefined, mergedOptions);
+    return qs.stringify(paramsAsObject, mergedOptions);
 }

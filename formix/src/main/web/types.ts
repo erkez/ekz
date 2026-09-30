@@ -137,6 +137,18 @@ export interface FormValidationApi {
     registerValidation(validation: FieldValidation<unknown>): () => void;
     getValidationResult(fieldRef: FieldRef<unknown>): ValidationResult;
     isFieldValid(fieldRef: GenericFieldRef): boolean;
+    /**
+     * Fields with at least one registered validation error, including fields whose async
+     * validation is still pending but whose previous result was an error.
+     */
+    invalidFields: List<FieldRef<unknown>>;
+    /**
+     * `true` when any registered validation has an error, regardless of `pending`.
+     */
+    hasErrors: boolean;
+    /**
+     * `true` when no validation has an error and none is pending.
+     */
     valid: boolean;
     pending: boolean;
 }

@@ -71,6 +71,26 @@ Formix works well with [immutable.js](https://immutable-js.github.io/immutable-j
 
 Field refs carry stable identities across renders. Use the same ref object for `useField`, `useFieldValidation`, and `getValues`.
 
+## Groups and optional sub-forms
+
+A field's value is opaque to formix: refs stored *inside* a field's value are not traversed by
+`getValues`, `getStates` or `isFieldValid`. Group refs in a plain object instead, and model an optional
+sub-form as an array field holding zero or one item:
+
+```tsx
+function defineAddress(address?: Address) {
+    return {
+        street: defineField(address?.street ?? ''),
+        city: defineField(address?.city ?? ''),
+    };
+}
+
+const refs = {
+    shipping: defineAddress(order.shipping),
+    billing: defineArrayField(order.billing != null ? [order.billing] : [], defineAddress), // optional
+};
+```
+
 ## Anti-patterns
 
 - **Raw `useState` per input** — loses shared `valid` / `modified` and cross-field validation

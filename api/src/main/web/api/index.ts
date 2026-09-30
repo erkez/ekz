@@ -14,7 +14,7 @@ export type {
 export { useRequestQueue, type RequestQueue, type Deferred } from './RequestQueue';
 
 export { useWebSocket, type WebSocketApi } from './useWebSocket';
-export { isExpectedApiError, type ApiResultFailure, type ExpectedApiError } from './domain';
+export { isExpectedApiError, ExpectedApiError, type ApiResultFailure } from './domain';
 export { stringifyQueryParams } from './utils';
 
 export const DefaultApi = apiClientProviderFactory();

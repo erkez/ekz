@@ -34,7 +34,8 @@ interface RequestConfig<Body> {
 }
 ```
 
-- **`query`** — serialized with `stringifyQueryParams` (nested objects supported)
+- **`query`** — serialized with `stringifyQueryParams`: `null`/`undefined` values are omitted, arrays
+  repeat the key (`a=1&a=2`), nested objects use bracket notation (`filter[active]=true`)
 - **`headers`** — sent with the request, merged over anything `onRequest` adds
 - **`retryAttempts`** — retries on `504` or a network error with exponential backoff (cap 30s). Defaults to 3 for
   `GET`, `HEAD`, `OPTIONS`, `PUT` and `DELETE`, and to 0 for `POST` and `PATCH`, whose response may

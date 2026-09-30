@@ -33,7 +33,10 @@ const { getValues, modified, valid, reset } = useForm();
 | -------- | ------- |
 | `getValues(ref)` | Current value for a `FieldRef` or `ArrayFieldRef` |
 | `modified` | User has changed at least one field since mount/reset |
-| `valid` | All registered validators pass |
+| `valid` | All registered validators pass and none is pending |
+| `pending` | An async validator is still running |
+| `hasErrors` | Some registered validator has an error, regardless of `pending` |
+| `invalidFields` | `List` of the refs that have an error |
 | `reset()` | Reset touched/modified state (after successful save) |
 
 ## Gating submit

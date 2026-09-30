@@ -80,17 +80,25 @@ export function useFormValidation(getFieldState: FormApi['getFieldState']): Form
             .some((v) => v.pending);
     }, [validations]);
 
-    const valid = React.useMemo(() => {
-        return (
-            !pending &&
-            validations
-                .valueSeq()
-                .flatMap((v) => v)
-                .every((v) => v.error == null)
-        );
-    }, [pending, validations]);
+    const invalidFields = React.useMemo(() => {
+        return validations
+            .filter((fieldValidations) => fieldValidations.some((v) => v.error != null))
+            .keySeq()
+            .toList();
+    }, [validations]);
 
-    return { registerValidation, getValidationResult, isFieldValid, valid, pending };
+    const hasErrors = !invalidFields.isEmpty();
+    const valid = !pending && !hasErrors;
+
+    return {
+        registerValidation,
+        getValidationResult,
+        isFieldValid,
+        invalidFields,
+        hasErrors,
+        valid,
+        pending
+    };
 }
 
 const EmptyValidationResult: ValidationResult = Object.freeze({

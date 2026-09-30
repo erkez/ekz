@@ -102,3 +102,21 @@ With validators registered, `useForm().valid` reflects the full form. Pair with 
 ```
 
 Do not duplicate validation only in the save handler — the button would stay enabled while invalid.
+
+## Revealing errors on submit
+
+To keep the button enabled and show errors when it is clicked instead, mark the failing fields touched.
+`valid` is also `false` while an async validator is pending, so check `hasErrors` to tell "has errors"
+apart from "still checking":
+
+```tsx
+const { hasErrors, pending, invalidFields, setFieldState } = useForm();
+
+function onSubmit() {
+    if (hasErrors) {
+        invalidFields.forEach((ref) => setFieldState(ref, (state) => state.updated({ touched: true })));
+    } else if (!pending) {
+        save();
+    }
+}
+```
