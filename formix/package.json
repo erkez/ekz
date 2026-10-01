@@ -1,6 +1,6 @@
 {
   "name": "@ekz/formix",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "license": "MIT",
   "description": "Type-safe React form to be used with Typescript",
   "homepage": "https://docs.ekz.io/formix/",

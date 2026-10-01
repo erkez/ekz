@@ -1,5 +1,16 @@
 # @ekz/api
 
+## 1.1.1
+
+### Patch Changes
+
+- 124cf0e: Export `ExpectedApiError` as a value, so `new ExpectedApiError(...)` compiles when imported from `@ekz/api`. It was re-exported type-only.
+- ef7384c: Serialize query parameters with `qs` instead of the deprecated `querystring` package, which ignored the `skipNulls`/`indices` options.
+
+  - `null` and `undefined` values are omitted instead of sent as `key=`.
+  - Nested objects are encoded in bracket notation (`a[b]=1`) instead of collapsing to `a=`.
+  - Installing the package no longer prints the `querystring` deprecation warning.
+
 ## 1.1.0
 
 ### Minor Changes

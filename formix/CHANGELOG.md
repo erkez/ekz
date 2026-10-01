@@ -1,5 +1,15 @@
 # @ekz/formix
 
+## 2.2.0
+
+### Minor Changes
+
+- dd10a53: Add `invalidFields` and `hasErrors` to the form API.
+
+  - `invalidFields` lists the refs that have a validation error, so a submit handler can mark exactly those touched to reveal their errors.
+  - `hasErrors` is `true` when any validation has an error, independent of `pending`. `valid` keeps its meaning (no errors and nothing pending), which could not tell "invalid" apart from "an async validator is still running".
+  - Documented that refs stored inside a field's value are not traversed; model optional sub-forms as an array field of zero or one item.
+
 ## 2.1.2
 
 ### Patch Changes
